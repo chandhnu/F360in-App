@@ -42,3 +42,6 @@ flutter run -d web
 Version 1.0.0 - Dashboard Prototype (UI prototype with sample data)
 
 Next: Milestone 2 - Profile Engine (database integration)
+
+Updated: PWA deployment configured
+Trigger PWA build on CodeMagic

@@ -1,0 +1,8 @@
+# Location of the SDK. This is only used by Gradle.
+# If you do not have an Android SDK installed, please prompt the user to download the SDK as part of the Getting Started guide.
+
+sdk.dir=/path/to/android-sdk
+
+# For Codemagic, set this to the Android SDK location
+# Example: sdk.dir=/Users/codemagic/Library/Android/sdk
+# Or on Linux: sdk.dir=$HOME/Android/sdk

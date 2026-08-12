@@ -1,4 +1,27 @@
 workflows:
+  web-release:
+    name: F360in Web PWA Release Build
+    environment:
+      flutter: stable
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'main'
+          include: true
+    scripts:
+      - name: Setup Flutter
+        script: |
+          flutter config --no-analytics
+          flutter pub get
+          
+      - name: Build Web
+        script: |
+          flutter build web --release -v
+          
+    artifacts:
+      - build/web/**
+
   ios-release:
     name: F360in iOS Release Build
     environment:
@@ -125,4 +148,3 @@ workflows:
       google_play:
         credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
         track: internal
-

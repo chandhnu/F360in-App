@@ -5,7 +5,7 @@ import 'config/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AppLogger.info('F360in Dashboard Prototype Starting...');
+  print('F360in Dashboard Prototype Starting...');
   runApp(const ProviderScope(child: F360inApp()));
 }
 

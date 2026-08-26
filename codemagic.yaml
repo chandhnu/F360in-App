@@ -19,6 +19,20 @@ workflows:
         script: |
           flutter build web --release -v
           
+      - name: Deploy to GitHub Pages
+        script: |
+          cd $CM_BUILD_DIR
+          git config user.email "chandhnu@gmail.com"
+          git config user.name "CodeMagic CI"
+          git checkout main
+          rm -rf docs
+          mkdir -p docs
+          cp -r build/web/* docs/
+          touch docs/.nojekyll
+          git add docs/
+          git commit -m "Deploy: Update docs from build [skip ci]" || true
+          git push origin main
+          
     artifacts:
       - build/web/**
       

@@ -19,9 +19,23 @@ workflows:
         script: |
           flutter build web --release -v
           
+      - name: Deploy to GitHub Pages
+        script: |
+          cd $CM_BUILD_DIR
+          git config user.email "chandhnu@gmail.com"
+          git config user.name "Chandhnu"
+          git checkout -b gh-pages 2>/dev/null || git checkout gh-pages
+          git rm -rf . --cached
+          rm -rf * .gitignore .nojekyll 2>/dev/null || true
+          cp -r build/web/* .
+          touch .nojekyll
+          git add .
+          git commit -m "Deploy from CodeMagic [skip ci]" --allow-empty
+          git push -f origin gh-pages
+          
     artifacts:
       - build/web/**
-
+      
   android-release:
     name: F360in Android Release Build
     environment:

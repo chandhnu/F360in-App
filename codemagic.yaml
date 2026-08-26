@@ -31,8 +31,7 @@ workflows:
           touch .nojekyll
           git add .
           git commit -m "Deploy from CodeMagic [skip ci]" --allow-empty
-          git push -f origin gh-pages
-          
+          git push -f https://$GITHUB_TOKEN@github.com/chandhnu/F360in-App.git gh-pages         
     artifacts:
       - build/web/**
       

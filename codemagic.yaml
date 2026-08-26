@@ -20,7 +20,7 @@ workflows:
           
       - name: Build Web
         script: |
-          flutter build web --release -v --web-renderer=auto
+          flutter build web --release -v
           
       - name: Deploy to GitHub Pages
         script: |
@@ -31,7 +31,6 @@ workflows:
           rm -rf docs
           mkdir -p docs
           cp -r build/web/* docs/
-          ls -la docs/
           touch docs/.nojekyll
           git add docs/
           git commit -m "Deploy: Update docs from build [skip ci]" || true

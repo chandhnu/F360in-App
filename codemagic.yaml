@@ -24,6 +24,7 @@ workflows:
           cd $CM_BUILD_DIR
           git config user.email "chandhnu@gmail.com"
           git config user.name "Chandhnu"
+          git remote set-url origin https://chandhnu:$GITHUB_TOKEN@github.com/chandhnu/F360in-App.git
           git checkout -b gh-pages 2>/dev/null || git checkout gh-pages
           git rm -rf . --cached
           rm -rf * .gitignore .nojekyll 2>/dev/null || true
@@ -31,7 +32,7 @@ workflows:
           touch .nojekyll
           git add .
           git commit -m "Deploy from CodeMagic [skip ci]" --allow-empty
-          git push -f https://$GITHUB_TOKEN@github.com/chandhnu/F360in-App.git gh-pages         
+          git push -f origin gh-pages         
     artifacts:
       - build/web/**
       

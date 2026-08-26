@@ -3,6 +3,8 @@ workflows:
     name: F360in Web PWA Release Build
     environment:
       flutter: stable
+      groups:
+        - netlify_credentials
     triggering:
       events:
         - push
@@ -31,6 +33,7 @@ workflows:
           touch docs/.nojekyll
           git add docs/
           git commit -m "Deploy: Update docs from build [skip ci]" || true
+          git remote set-url origin https://chandhnu:$GITHUB_TOKEN@github.com/chandhnu/F360in-App.git
           git push origin main
           
     artifacts:

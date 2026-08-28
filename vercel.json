@@ -1,0 +1,5 @@
+{
+  "buildCommand": "echo 'Using pre-built files from docs folder'",
+  "outputDirectory": "docs",
+  "installCommand": "echo 'No install needed'"
+}

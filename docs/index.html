@@ -36,12 +36,21 @@
             max-width: 400px;
         }
 
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header img {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
         .auth-header h1 {
-            font-size: 32px;
+            font-size: 20px;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #333;
             margin-bottom: 0.5rem;
         }
 
@@ -92,6 +101,17 @@
             position: sticky;
             top: 0;
             z-index: 100;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .top-bar-left img {
+            height: 40px;
+            width: auto;
         }
 
         .container {
@@ -333,6 +353,11 @@
             .sheet-tabs {
                 grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             }
+
+            .top-bar {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
@@ -341,8 +366,9 @@
     <div class="auth-screen" id="authScreen">
         <div class="auth-card">
             <div class="auth-header">
-                <h1>F360in</h1>
-                <p>Premium Personal Wealth OS</p>
+                <img src="https://raw.githubusercontent.com/chandhnu/F360in-App/main/docs/6.png" alt="F360in Logo">
+                <h1>Wealth Management</h1>
+                <p>Complete Financial Dashboard</p>
             </div>
             <form onsubmit="handleLogin(event)">
                 <input type="password" id="passwordInput" class="auth-input" placeholder="Enter password" required>
@@ -355,9 +381,12 @@
     <!-- DASHBOARD -->
     <div class="dashboard" id="dashboard">
         <div class="top-bar">
-            <div>
-                <h2 style="font-size: 24px; font-weight: 700;">F360in Premium Dashboard</h2>
-                <p style="font-size: 12px; color: #999; margin-top: 4px;">Complete Financial Data Management</p>
+            <div class="top-bar-left">
+                <img src="https://raw.githubusercontent.com/chandhnu/F360in-App/main/docs/6.png" alt="F360in Logo">
+                <div>
+                    <h2 style="font-size: 18px; font-weight: 700; margin: 0;">F360in</h2>
+                    <p style="font-size: 11px; color: #999; margin: 0;">Wealth Management Dashboard</p>
+                </div>
             </div>
             <div>
                 <button class="btn btn-secondary" onclick="handleLogout()">Logout</button>

@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <base href="/F360in-App/">
+  <base href="/">
   <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="F360in">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>F360in</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>F360in - Personal Wealth OS</title>
   <link rel="manifest" href="manifest.json">
   <script src="flutter.js" defer></script>
+  <script src="flutter_bootstrap.js" defer></script>
 </head>
-<body></body>
+<body>
+  <script>
+    _flutter.loader.load({
+      onEntrypointLoaded: function(engineInitializer) {
+        engineInitializer.initializeEngine().then(function(appRunner) {
+          appRunner.runApp();
+        });
+      }
+    });
+  </script>
+</body>
 </html>

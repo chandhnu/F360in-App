@@ -1,27 +1,1151 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <base href="/">
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="F360in">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title>F360in - Personal Wealth OS</title>
-  <link rel="manifest" href="manifest.json">
-  <script src="flutter.js" defer></script>
-  <script src="flutter_bootstrap.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F360in - Premium Financial Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .auth-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-header p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 2rem;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 1rem;
+        }
+
+        .auth-button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .dashboard {
+            display: none;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .top-bar {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #667eea;
+        }
+
+        .kpi-subtext {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .sheet-tabs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .sheet-tab {
+            padding: 12px;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .sheet-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .form-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .upload-area {
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .upload-area:hover {
+            background: #f5f5f5;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 350px;
+            margin-bottom: 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -17px;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .goal-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .projection-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .projection-row:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sheet-tabs {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
-  <script>
-    _flutter.loader.load({
-      onEntrypointLoaded: function(engineInitializer) {
-        engineInitializer.initializeEngine().then(function(appRunner) {
-          appRunner.runApp();
+    <!-- AUTH SCREEN -->
+    <div class="auth-screen" id="authScreen">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>F360in</h1>
+                <p>Premium Personal Wealth OS</p>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                <input type="password" id="passwordInput" class="auth-input" placeholder="Enter password" required>
+                <button type="submit" class="auth-button">Access Dashboard</button>
+                <div id="authError" style="color: #e34948; font-size: 13px; margin-top: 1rem; text-align: center;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard" id="dashboard">
+        <div class="top-bar">
+            <div>
+                <h2 style="font-size: 24px; font-weight: 700;">F360in Premium Dashboard</h2>
+                <p style="font-size: 12px; color: #999; margin-top: 4px;">Complete Financial Data Management</p>
+            </div>
+            <div>
+                <button class="btn btn-secondary" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- KPI CARDS -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Net Worth</div>
+                    <div class="kpi-value" id="kpiNetWorth">₹0</div>
+                    <div class="kpi-subtext" id="kpiNetWorthSub">Total Assets</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Monthly Surplus</div>
+                    <div class="kpi-value" id="kpiSurplus">₹0</div>
+                    <div class="kpi-subtext">Income after expenses</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Health Score</div>
+                    <div class="kpi-value" id="kpiHealth">0/100</div>
+                    <div class="kpi-subtext">Financial fitness</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Monthly Expenses</div>
+                    <div class="kpi-value" id="kpiExpenses">₹0</div>
+                    <div class="kpi-subtext">Total spending</div>
+                </div>
+            </div>
+
+            <!-- MAIN TABS -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchMainTab('data-input', this)">Data Input</button>
+                <button class="tab-btn" onclick="switchMainTab('analytics', this)">Analytics</button>
+                <button class="tab-btn" onclick="switchMainTab('goals', this)">Goals</button>
+                <button class="tab-btn" onclick="switchMainTab('projections', this)">Projections</button>
+                <button class="tab-btn" onclick="switchMainTab('upload', this)">Excel Upload</button>
+            </div>
+
+            <!-- TAB 1: DATA INPUT -->
+            <div id="data-input" class="tab-content active">
+                <div class="sheet-tabs" id="sheetTabs"></div>
+                <div id="sheetContent"></div>
+            </div>
+
+            <!-- TAB 2: ANALYTICS -->
+            <div id="analytics" class="tab-content">
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 1.5rem;">Asset Allocation</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="allocationChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Total Assets</div>
+                        <div class="kpi-value" id="analyticsAssets">₹0</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Total Liabilities</div>
+                        <div class="kpi-value" id="analyticsLiabilities">₹0</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Investment Coverage</div>
+                        <div class="kpi-value" id="investmentCoverage">0%</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-label">Savings Rate</div>
+                        <div class="kpi-value" id="savingsRate">0%</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 1.5rem;">Monthly Cash Flow</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="cashflowChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: GOALS -->
+            <div id="goals" class="tab-content">
+                <div class="form-section">
+                    <h3>Financial Goals</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Goal Name</label>
+                            <input type="text" id="goalName" placeholder="e.g., Emergency Fund">
+                        </div>
+                        <div class="form-group">
+                            <label>Target Amount (₹)</label>
+                            <input type="number" id="goalAmount" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Current Amount (₹)</label>
+                            <input type="number" id="goalCurrent" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Target Date</label>
+                            <input type="date" id="goalDate">
+                        </div>
+                    </div>
+                    <button class="btn" onclick="addGoal()">Add Goal</button>
+                </div>
+
+                <div id="goalsDisplay"></div>
+            </div>
+
+            <!-- TAB 4: PROJECTIONS -->
+            <div id="projections" class="tab-content">
+                <div class="form-section">
+                    <h3>Wealth Projections</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Projection Period (Years)</label>
+                            <select id="projectionYears">
+                                <option value="5">5 Years</option>
+                                <option value="10">10 Years</option>
+                                <option value="20">20 Years</option>
+                                <option value="30">30 Years</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Annual Return (%)</label>
+                            <input type="number" id="annualReturn" value="8" placeholder="8">
+                        </div>
+                        <div class="form-group">
+                            <label>Monthly Investment (₹)</label>
+                            <input type="number" id="monthlyInvest" value="0" placeholder="0">
+                        </div>
+                    </div>
+                    <button class="btn" onclick="generateProjection()">Generate Projection</button>
+                </div>
+
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 1.5rem;">Wealth Growth Projection</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="projectionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Retirement Planning</h3>
+                    <div id="retirementTable"></div>
+                </div>
+            </div>
+
+            <!-- TAB 5: EXCEL UPLOAD -->
+            <div id="upload" class="tab-content">
+                <div class="form-section">
+                    <h3>Excel Data Upload</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem; font-size: 14px;">
+                        Upload your F360in Excel sheet. The system will automatically extract and populate all data.
+                    </p>
+                    
+                    <div class="upload-area" id="uploadArea">
+                        <div style="font-size: 48px; margin-bottom: 1rem;">📁</div>
+                        <div style="font-size: 14px; font-weight: 600; margin-bottom: 0.5rem;">Drop your Excel file here</div>
+                        <div style="font-size: 12px; color: #999;">or click to select</div>
+                        <input type="file" id="excelUpload" accept=".xlsx,.xls" style="display: none;" onchange="handleExcelUpload(event)">
+                    </div>
+
+                    <div id="uploadStatus" style="margin-top: 1rem; font-size: 13px;"></div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Data Export</h3>
+                    <p style="color: #666; margin-bottom: 1rem; font-size: 14px;">
+                        Download all your data as JSON for backup or offline use.
+                    </p>
+                    <button class="btn" onclick="exportData()">📥 Download as JSON</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allData = {
+            meta: {
+                name: "User",
+                currency: "INR",
+                fy_start_month: 4,
+                timezone: "Asia/Kolkata",
+                location: "India"
+            },
+            assets: {
+                bank_savings: 0,
+                fixed_deposits: 0,
+                shares_nse: 0,
+                us_stocks: 0,
+                crypto: 0,
+                mutual_funds: 0,
+                gold: 0,
+                real_estate: 0,
+                other_cash: 0
+            },
+            savings_maturity: [],
+            rd_maturity: [],
+            cash_in_hand: [],
+            equity_shares: [],
+            equity_us: [],
+            crypto: [],
+            mutual_funds: [],
+            liabilities: {
+                car_loan: 0,
+                credit_card: 0,
+                home_loan: 0,
+                personal_loan: 0
+            },
+            income: {
+                basic_salary: 0,
+                hra: 0,
+                lta: 0,
+                other_allowances: 0,
+                other_income: 0
+            },
+            expenses_fixed: {
+                rent: 0,
+                emi: 0,
+                utilities: 0,
+                subscriptions: 0,
+                insurance: 0
+            },
+            expenses_variable: {
+                food: 0,
+                transport: 0,
+                entertainment: 0,
+                shopping: 0,
+                healthcare: 0
+            },
+            goals: [],
+            projections: {}
+        };
+
+        const PASSWORD = "f360in2024";
+        const sheets = [
+            { id: "meta", name: "Profile", icon: "👤" },
+            { id: "assets", name: "Assets", icon: "🏦" },
+            { id: "liabilities", name: "Liabilities", icon: "💳" },
+            { id: "income", name: "Income", icon: "💰" },
+            { id: "expenses_fixed", name: "Fixed Expenses", icon: "📋" },
+            { id: "expenses_variable", name: "Variable Expenses", icon: "🛒" },
+            { id: "equity_shares", name: "Stocks", icon: "📈" },
+            { id: "equity_us", name: "US Stocks", icon: "🗽" },
+            { id: "crypto", name: "Crypto", icon: "₿" },
+            { id: "mutual_funds", name: "Mutual Funds", icon: "📊" },
+            { id: "savings_maturity", name: "Savings", icon: "🏦" },
+            { id: "rd_maturity", name: "RDs", icon: "🔄" },
+            { id: "cash_in_hand", name: "Cash", icon: "💵" }
+        ];
+
+        let chartInstances = {};
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const password = document.getElementById('passwordInput').value;
+            
+            if (password === PASSWORD) {
+                localStorage.setItem('f360inAuth', 'true');
+                document.getElementById('authScreen').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                initDashboard();
+            } else {
+                document.getElementById('authError').textContent = 'Incorrect password';
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('f360inAuth');
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('authScreen').style.display = 'flex';
+            document.getElementById('passwordInput').value = '';
+        }
+
+        function initDashboard() {
+            loadStoredData();
+            renderSheetTabs();
+            renderSheetForms();
+            updateKPIs();
+            setupUploadArea();
+        }
+
+        function loadStoredData() {
+            const stored = localStorage.getItem('f360inData');
+            if (stored) {
+                try {
+                    allData = JSON.parse(stored);
+                } catch (err) {
+                    console.log('Could not load stored data');
+                }
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('f360inData', JSON.stringify(allData));
+            updateKPIs();
+        }
+
+        function renderSheetTabs() {
+            const container = document.getElementById('sheetTabs');
+            container.innerHTML = sheets.map((sheet, idx) => `
+                <button class="sheet-tab ${idx === 0 ? 'active' : ''}" onclick="switchSheet('${sheet.id}', this)">
+                    ${sheet.icon} ${sheet.name}
+                </button>
+            `).join('');
+        }
+
+        function switchSheet(sheetId, element) {
+            document.querySelectorAll('.sheet-tab').forEach(tab => tab.classList.remove('active'));
+            element.classList.add('active');
+            renderSheetForms(sheetId);
+        }
+
+        function renderSheetForms(sheetId = 'meta') {
+            const container = document.getElementById('sheetContent');
+            
+            let formHTML = '';
+
+            if (sheetId === 'meta') {
+                formHTML = `
+                    <div class="form-section">
+                        <h3>Profile Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" value="${allData.meta.name}" onchange="allData.meta.name = this.value; saveData()">
+                            </div>
+                            <div class="form-group">
+                                <label>Currency</label>
+                                <select onchange="allData.meta.currency = this.value; saveData()">
+                                    <option ${allData.meta.currency === 'INR' ? 'selected' : ''}>INR</option>
+                                    <option ${allData.meta.currency === 'USD' ? 'selected' : ''}>USD</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" value="${allData.meta.location}" onchange="allData.meta.location = this.value; saveData()">
+                            </div>
+                            <div class="form-group">
+                                <label>Timezone</label>
+                                <input type="text" value="${allData.meta.timezone}" onchange="allData.meta.timezone = this.value; saveData()">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (sheetId === 'assets') {
+                formHTML = `
+                    <div class="form-section">
+                        <h3>Assets</h3>
+                        <div class="form-grid">
+                            ${renderAssetInputs()}
+                        </div>
+                        <button class="btn" onclick="saveData()">Save Assets</button>
+                    </div>
+                `;
+            } else if (sheetId === 'liabilities') {
+                formHTML = `
+                    <div class="form-section">
+                        <h3>Liabilities</h3>
+                        <div class="form-grid">
+                            ${renderLiabilityInputs()}
+                        </div>
+                        <button class="btn" onclick="saveData()">Save Liabilities</button>
+                    </div>
+                `;
+            } else if (sheetId === 'income') {
+                formHTML = `
+                    <div class="form-section">
+                        <h3>Monthly Income</h3>
+                        <div class="form-grid">
+                            ${renderIncomeInputs()}
+                        </div>
+                        <button class="btn" onclick="saveData()">Save Income</button>
+                    </div>
+                `;
+            } else if (sheetId === 'expenses_fixed') {
+                formHTML = `
+                    <div class="form-section">
+                        <h3>Fixed Monthly Expenses</h3>
+                        <div class="form-grid">
+                            ${renderFixedExpenseInputs()}
+                        </div>
+                        <button class="btn" onclick="saveData()">Save Expenses</button>
+                    </div>
+                `;
+            } else if (sheetId === 'expenses_variable') {
+                formHTML = `
+                    <div class="form-section">
+                        <h3>Variable Monthly Expenses</h3>
+                        <div class="form-grid">
+                            ${renderVariableExpenseInputs()}
+                        </div>
+                        <button class="btn" onclick="saveData()">Save Expenses</button>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = formHTML;
+        }
+
+        function renderAssetInputs() {
+            return Object.keys(allData.assets).map(key => {
+                const label = key.replace(/_/g, ' ').toUpperCase();
+                return `
+                    <div class="form-group">
+                        <label>${label}</label>
+                        <input type="number" value="${allData.assets[key]}" 
+                               onchange="allData.assets['${key}'] = parseFloat(this.value) || 0; saveData()" 
+                               placeholder="0">
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderLiabilityInputs() {
+            return Object.keys(allData.liabilities).map(key => {
+                const label = key.replace(/_/g, ' ').toUpperCase();
+                return `
+                    <div class="form-group">
+                        <label>${label}</label>
+                        <input type="number" value="${allData.liabilities[key]}" 
+                               onchange="allData.liabilities['${key}'] = parseFloat(this.value) || 0; saveData()" 
+                               placeholder="0">
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderIncomeInputs() {
+            return Object.keys(allData.income).map(key => {
+                const label = key.replace(/_/g, ' ').toUpperCase();
+                return `
+                    <div class="form-group">
+                        <label>${label}</label>
+                        <input type="number" value="${allData.income[key]}" 
+                               onchange="allData.income['${key}'] = parseFloat(this.value) || 0; saveData()" 
+                               placeholder="0">
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderFixedExpenseInputs() {
+            return Object.keys(allData.expenses_fixed).map(key => {
+                const label = key.replace(/_/g, ' ').toUpperCase();
+                return `
+                    <div class="form-group">
+                        <label>${label}</label>
+                        <input type="number" value="${allData.expenses_fixed[key]}" 
+                               onchange="allData.expenses_fixed['${key}'] = parseFloat(this.value) || 0; saveData()" 
+                               placeholder="0">
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderVariableExpenseInputs() {
+            return Object.keys(allData.expenses_variable).map(key => {
+                const label = key.replace(/_/g, ' ').toUpperCase();
+                return `
+                    <div class="form-group">
+                        <label>${label}</label>
+                        <input type="number" value="${allData.expenses_variable[key]}" 
+                               onchange="allData.expenses_variable['${key}'] = parseFloat(this.value) || 0; saveData()" 
+                               placeholder="0">
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function switchMainTab(tabName, element) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+            element.classList.add('active');
+
+            if (tabName === 'analytics') {
+                setTimeout(() => {
+                    renderAnalytics();
+                }, 100);
+            } else if (tabName === 'projections') {
+                setTimeout(() => {
+                    renderProjections();
+                }, 100);
+            } else if (tabName === 'goals') {
+                renderGoals();
+            }
+        }
+
+        function calculateMetrics() {
+            const totalAssets = Object.values(allData.assets).reduce((a, b) => a + b, 0);
+            const totalLiabilities = Object.values(allData.liabilities).reduce((a, b) => a + b, 0);
+            const netWorth = totalAssets - totalLiabilities;
+
+            const grossIncome = Object.values(allData.income).reduce((a, b) => a + b, 0);
+            const totalExpenses = Object.values(allData.expenses_fixed).reduce((a, b) => a + b, 0) +
+                                 Object.values(allData.expenses_variable).reduce((a, b) => a + b, 0);
+            const monthlysurplus = grossIncome - totalExpenses;
+
+            let healthScore = 50;
+            if (netWorth > 5000000) healthScore += 15;
+            if (monthlysurplus > 10000) healthScore += 15;
+            if (totalLiabilities === 0) healthScore += 10;
+            if (totalAssets > totalLiabilities * 5) healthScore += 10;
+            healthScore = Math.min(100, healthScore);
+
+            return { totalAssets, totalLiabilities, netWorth, grossIncome, totalExpenses, monthlysurplus, healthScore };
+        }
+
+        function updateKPIs() {
+            const metrics = calculateMetrics();
+            document.getElementById('kpiNetWorth').textContent = `₹${(metrics.netWorth / 100000).toFixed(2)}L`;
+            document.getElementById('kpiNetWorthSub').textContent = `Liabilities: ₹${(metrics.totalLiabilities / 100000).toFixed(2)}L`;
+            document.getElementById('kpiSurplus').textContent = `₹${Math.round(metrics.monthlysurplus).toLocaleString()}`;
+            document.getElementById('kpiHealth').textContent = `${Math.round(metrics.healthScore)}/100`;
+            document.getElementById('kpiExpenses').textContent = `₹${Math.round(metrics.totalExpenses).toLocaleString()}`;
+        }
+
+        function renderAnalytics() {
+            const metrics = calculateMetrics();
+
+            document.getElementById('analyticsAssets').textContent = `₹${(metrics.totalAssets / 100000).toFixed(2)}L`;
+            document.getElementById('analyticsLiabilities').textContent = `₹${(metrics.totalLiabilities / 100000).toFixed(2)}L`;
+            document.getElementById('investmentCoverage').textContent = `${((metrics.totalAssets / metrics.totalAssets) * 100).toFixed(1)}%`;
+            document.getElementById('savingsRate').textContent = `${((metrics.monthlysurplus / metrics.grossIncome) * 100).toFixed(1)}%`;
+
+            renderAllocationChart(metrics);
+            renderCashFlowChart(metrics);
+        }
+
+        function renderAllocationChart(metrics) {
+            if (chartInstances.allocation) chartInstances.allocation.destroy();
+
+            const ctx = document.getElementById('allocationChart');
+            if (!ctx) return;
+
+            const assetLabels = Object.keys(allData.assets).map(k => k.replace(/_/g, ' '));
+            const assetValues = Object.values(allData.assets);
+
+            chartInstances.allocation = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: assetLabels,
+                    datasets: [{
+                        data: assetValues,
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe', '#43e97b', '#fa709a', '#fee140', '#30cfd0'],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: true, position: 'bottom' } }
+                }
+            });
+        }
+
+        function renderCashFlowChart(metrics) {
+            if (chartInstances.cashflow) chartInstances.cashflow.destroy();
+
+            const ctx = document.getElementById('cashflowChart');
+            if (!ctx) return;
+
+            chartInstances.cashflow = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Gross Income', 'Total Expenses', 'Monthly Surplus'],
+                    datasets: [{
+                        label: 'Amount (₹)',
+                        data: [metrics.grossIncome, metrics.totalExpenses, metrics.monthlysurplus],
+                        backgroundColor: ['#667eea', '#fa709a', '#43e97b']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
+        function addGoal() {
+            const name = document.getElementById('goalName').value;
+            const target = parseFloat(document.getElementById('goalAmount').value);
+            const current = parseFloat(document.getElementById('goalCurrent').value);
+            const date = document.getElementById('goalDate').value;
+
+            if (name && target && date) {
+                allData.goals.push({ id: Date.now(), name, target, current, date });
+                saveData();
+                document.getElementById('goalName').value = '';
+                document.getElementById('goalAmount').value = '';
+                document.getElementById('goalCurrent').value = '';
+                document.getElementById('goalDate').value = '';
+                renderGoals();
+            }
+        }
+
+        function renderGoals() {
+            const container = document.getElementById('goalsDisplay');
+            if (!allData.goals.length) {
+                container.innerHTML = '<p style="color: #999; text-align: center; padding: 2rem;">No goals yet. Add one to get started!</p>';
+                return;
+            }
+
+            container.innerHTML = allData.goals.map(goal => {
+                const progress = (goal.current / goal.target) * 100;
+                return `
+                    <div class="goal-card">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                            <h4>${goal.name}</h4>
+                            <button class="btn btn-secondary" onclick="deleteGoal(${goal.id})" style="padding: 6px 12px; font-size: 12px;">Delete</button>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 12px;">
+                                <span>₹${Math.round(goal.current).toLocaleString()} / ₹${Math.round(goal.target).toLocaleString()}</span>
+                                <span>${Math.round(progress)}%</span>
+                            </div>
+                            <div style="background: #e0e0e0; border-radius: 8px; height: 8px; overflow: hidden;">
+                                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100%; width: ${progress}%;"></div>
+                            </div>
+                        </div>
+                        <div style="font-size: 12px; color: #999;">Target: ${new Date(goal.date).toLocaleDateString()}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function deleteGoal(id) {
+            allData.goals = allData.goals.filter(g => g.id !== id);
+            saveData();
+            renderGoals();
+        }
+
+        function generateProjection() {
+            const years = parseInt(document.getElementById('projectionYears').value);
+            const returnRate = parseFloat(document.getElementById('annualReturn').value) / 100;
+            const monthlyInvest = parseFloat(document.getElementById('monthlyInvest').value);
+            const currentWorth = calculateMetrics().netWorth;
+
+            const projections = [];
+            let value = currentWorth;
+
+            for (let year = 1; year <= years; year++) {
+                value = value * (1 + returnRate) + (monthlyInvest * 12);
+                projections.push({ year, value: Math.round(value) });
+            }
+
+            renderProjectionChart(projections);
+            renderRetirementTable(projections, currentWorth);
+            allData.projections = { years, returnRate, monthlyInvest, projections };
+            saveData();
+        }
+
+        function renderProjectionChart(projections) {
+            if (chartInstances.projection) chartInstances.projection.destroy();
+
+            const ctx = document.getElementById('projectionChart');
+            if (!ctx) return;
+
+            chartInstances.projection = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: projections.map(p => `Year ${p.year}`),
+                    datasets: [{
+                        label: 'Projected Net Worth',
+                        data: projections.map(p => p.value),
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: true } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
+        function renderRetirementTable(projections, currentWorth) {
+            const container = document.getElementById('retirementTable');
+            container.innerHTML = `
+                <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                    <tr style="background: #f5f5f5;">
+                        <th style="padding: 10px; border: 1px solid #e0e0e0; text-align: left;">Year</th>
+                        <th style="padding: 10px; border: 1px solid #e0e0e0; text-align: right;">Projected Worth</th>
+                        <th style="padding: 10px; border: 1px solid #e0e0e0; text-align: right;">Growth</th>
+                    </tr>
+                    ${projections.map((p, i) => {
+                        const growth = i === 0 ? p.value - currentWorth : p.value - projections[i-1].value;
+                        return `
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #e0e0e0;">Year ${p.year}</td>
+                                <td style="padding: 10px; border: 1px solid #e0e0e0; text-align: right;">₹${(p.value / 100000).toFixed(2)}L</td>
+                                <td style="padding: 10px; border: 1px solid #e0e0e0; text-align: right; color: #43e97b;">₹${(growth / 100000).toFixed(2)}L</td>
+                            </tr>
+                        `;
+                    }).join('')}
+                </table>
+            `;
+        }
+
+        function renderProjections() {
+            if (allData.projections.projections && allData.projections.projections.length) {
+                renderProjectionChart(allData.projections.projections);
+                renderRetirementTable(allData.projections.projections, calculateMetrics().netWorth);
+            }
+        }
+
+        function setupUploadArea() {
+            const uploadArea = document.getElementById('uploadArea');
+            const excelInput = document.getElementById('excelUpload');
+
+            uploadArea.onclick = () => excelInput.click();
+            uploadArea.ondrop = (e) => {
+                e.preventDefault();
+                excelInput.files = e.dataTransfer.files;
+                handleExcelUpload({ target: excelInput });
+            };
+            uploadArea.ondragover = (e) => {
+                e.preventDefault();
+                uploadArea.style.background = '#f5f5f5';
+            };
+        }
+
+        function handleExcelUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+
+                    workbook.SheetNames.forEach(sheetName => {
+                        const sheet = workbook.Sheets[sheetName];
+                        const json = XLSX.utils.sheet_to_json(sheet);
+
+                        if (sheetName === 'ASSETS' && json.length > 0) {
+                            const assetRow = json[0];
+                            Object.keys(allData.assets).forEach(key => {
+                                if (assetRow[key]) {
+                                    allData.assets[key] = parseFloat(assetRow[key]) || 0;
+                                }
+                            });
+                        }
+                    });
+
+                    saveData();
+                    document.getElementById('uploadStatus').innerHTML = '<span style="color: #43e97b;">✓ Excel file uploaded successfully!</span>';
+                    renderSheetForms();
+                } catch (err) {
+                    document.getElementById('uploadStatus').innerHTML = '<span style="color: #fa709a;">✗ Error reading Excel file</span>';
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(allData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `f360in_backup_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+        }
+
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('f360inAuth') === 'true') {
+                document.getElementById('authScreen').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                initDashboard();
+            }
         });
-      }
-    });
-  </script>
+    </script>
 </body>
 </html>

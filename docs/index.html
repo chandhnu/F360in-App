@@ -209,7 +209,7 @@
         }
 
         .pin-dots {
-            display: flex;
+            display: none;
             justify-content: center;
             gap: 8px;
             margin-bottom: 1.5rem;
@@ -325,11 +325,13 @@
             border-top: 1px solid #e0e0e0;
         }
 
-        .footer-text {
-            font-size: 12px;
-            color: #999;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
+        .footer-logo-img {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 1rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .security-text {
@@ -824,9 +826,7 @@
                         type="password" 
                         id="pinInput" 
                         class="pin-input" 
-                        placeholder="• • • • • •"
-                        maxlength="6"
-                        inputmode="numeric"
+                        placeholder="Enter password"
                         autocomplete="off"
                     >
                 </div>
@@ -847,7 +847,7 @@
 
             <!-- FOOTER -->
             <div class="login-footer">
-                <p class="footer-text">Kay Collectives</p>
+                <img src="footer-logo.png" alt="Kay Collectives" class="footer-logo-img">
                 <p class="security-text">Secure • Private • Yours</p>
             </div>
         </div>
@@ -1150,7 +1150,7 @@
             document.getElementById('profileSelector').style.display = 'none';
             document.getElementById('pinSection').classList.add('active');
             document.getElementById('pinInput').focus();
-            document.getElementById('pinLabel').textContent = `Enter PIN for ${selectedProfile.name}`;
+            document.getElementById('pinLabel').textContent = `Enter password for ${selectedProfile.name}`;
             pinAttempts = 0;
             clearPinInput();
         }
@@ -1188,8 +1188,8 @@
                 return;
             }
 
-            if (pin.length !== 6) {
-                showError(errorMessage, 'Please enter a 6-digit PIN');
+            if (pin.length === 0) {
+                showError(errorMessage, 'Please enter your password');
                 return;
             }
 
@@ -1200,7 +1200,7 @@
                     backToProfileSelection();
                     setTimeout(clearPinInput, 1500);
                 } else {
-                    showError(errorMessage, 'Incorrect PIN. Please try again.');
+                    showError(errorMessage, 'Incorrect password. Please try again.');
                     clearPinInput();
                 }
                 return;

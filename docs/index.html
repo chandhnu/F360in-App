@@ -40,28 +40,35 @@
         /* LOGIN HEADER */
         .login-header {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
 
         .login-header-logo {
-            max-width: 280px;
+            max-width: 320px;
             height: auto;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             display: block;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .login-subtitle {
-            font-size: 18px;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+        /* WELCOME TEXT */
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 2.5rem;
         }
 
-        .login-description {
+        .welcome-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-subtitle {
             font-size: 14px;
             color: #999;
+            font-weight: 500;
         }
 
         /* PROFILE SELECTOR */
@@ -735,6 +742,10 @@
                 max-width: 100%;
             }
 
+            .login-header-logo {
+                max-width: 260px;
+            }
+
             .sidebar {
                 display: none;
             }
@@ -757,10 +768,6 @@
             .search-box {
                 width: 100%;
             }
-
-            .login-header-logo {
-                max-width: 240px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -772,6 +779,10 @@
                 max-width: 200px;
             }
 
+            .welcome-title {
+                font-size: 18px;
+            }
+
             .profiles-list {
                 max-height: 320px;
             }
@@ -780,10 +791,6 @@
                 font-size: 16px;
                 letter-spacing: 4px;
             }
-
-            .login-subtitle {
-                font-size: 16px;
-            }
         }
     </style>
 </head>
@@ -791,48 +798,20 @@
     <!-- ===== LOGIN SCREEN ===== -->
     <div class="login-screen" id="loginScreen">
         <div class="login-container">
-            <!-- HEADER -->
+            <!-- HEADER WITH LOGO -->
             <div class="login-header">
-                <svg class="login-header-logo" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
-                    <!-- F -->
-                    <rect x="20" y="20" width="30" height="80" fill="#5a6e3d" rx="4"/>
-                    <rect x="20" y="20" width="40" height="18" fill="#5a6e3d" rx="4"/>
-                    <rect x="20" y="50" width="35" height="14" fill="#5a6e3d" rx="3"/>
-                    
-                    <!-- 3 -->
-                    <path d="M 80 20 L 110 20 Q 120 20 120 30 L 120 35 Q 120 42 105 42 L 90 42 M 90 50 L 105 50 Q 120 50 120 60 Q 120 75 80 75 L 75 75" 
-                          stroke="#f5e6d3" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    
-                    <!-- 6 -->
-                    <path d="M 155 20 L 155 75 Q 155 85 170 85 Q 185 85 185 70 Q 185 55 170 55 Q 155 55 155 65" 
-                          stroke="#f5e6d3" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    
-                    <!-- 0 -->
-                    <rect x="210" y="20" width="40" height="65" rx="20" stroke="#f5e6d3" stroke-width="14" fill="none"/>
-                    
-                    <!-- in -->
-                    <g fill="#f5e6d3">
-                        <rect x="270" y="30" width="12" height="50" rx="2"/>
-                        <circle cx="295" cy="25" r="6"/>
-                        <path d="M 295 35 L 295 80 Q 295 88 305 88 Q 315 88 315 80" stroke="#f5e6d3" stroke-width="12" fill="none" stroke-linecap="round"/>
-                    </g>
-                    
-                    <!-- Red dot -->
-                    <circle cx="330" cy="28" r="8" fill="#c41e3a"/>
-                </svg>
-                <p style="font-size: 11px; color: #5a6e3d; font-weight: 700; letter-spacing: 2px; margin-top: 0.5rem;">WEALTH MANAGEMENT</p>
+                <img src="logo.png" alt="F360in" class="login-header-logo">
             </div>
 
             <!-- WELCOME TEXT -->
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <h2 class="login-subtitle">Welcome back</h2>
-                <p class="login-description">Choose your financial profile to continue</p>
+            <div class="welcome-section">
+                <h2 class="welcome-title">Welcome back</h2>
+                <p class="welcome-subtitle">Choose your financial profile to continue</p>
             </div>
 
             <!-- PROFILE SELECTION -->
             <div class="profile-selector" id="profileSelector">
                 <label class="profile-label">Select Profile</label>
-                
                 <div class="profiles-list" id="profilesList"></div>
             </div>
 
@@ -919,7 +898,6 @@
                         <div class="kpi-icon">💰</div>
                     </div>
                     <div class="kpi-subtext">As of today</div>
-                    <canvas class="kpi-chart" id="chart-balance"></canvas>
                 </div>
 
                 <div class="kpi-card">
@@ -931,7 +909,6 @@
                         <div class="kpi-icon">📈</div>
                     </div>
                     <div class="kpi-subtext">Salary + Investments</div>
-                    <canvas class="kpi-chart" id="chart-income"></canvas>
                 </div>
 
                 <div class="kpi-card">
@@ -943,7 +920,6 @@
                         <div class="kpi-icon">💸</div>
                     </div>
                     <div class="kpi-subtext">Total burn rate</div>
-                    <canvas class="kpi-chart" id="chart-expenses"></canvas>
                 </div>
 
                 <div class="kpi-card">
@@ -955,7 +931,6 @@
                         <div class="kpi-icon">💎</div>
                     </div>
                     <div class="kpi-subtext">Available to invest</div>
-                    <canvas class="kpi-chart" id="chart-surplus"></canvas>
                 </div>
             </div>
 
@@ -998,7 +973,7 @@
                             </thead>
                             <tbody id="transactionsTable">
                                 <tr>
-                                    <td colspan="5" style="text-align: center; padding: 2rem; color: #999;">No transactions yet. Add your financial data to get started.</td>
+                                    <td colspan="5" style="text-align: center; padding: 2rem; color: #999;">No transactions yet.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1165,16 +1140,13 @@
         }
 
         function selectProfile(profileId, element) {
-            // Deselect previous
             document.querySelectorAll('.profile-card').forEach(card => {
                 card.classList.remove('active');
             });
 
-            // Select new
             element.classList.add('active');
             selectedProfile = profiles.find(p => p.id === profileId);
 
-            // Show PIN section
             document.getElementById('profileSelector').style.display = 'none';
             document.getElementById('pinSection').classList.add('active');
             document.getElementById('pinInput').focus();
@@ -1234,7 +1206,6 @@
                 return;
             }
 
-            // Authentication successful
             errorMessage.classList.remove('show');
             localStorage.setItem('f360in-session', JSON.stringify({
                 profileId: selectedProfile.id,
@@ -1272,8 +1243,6 @@
             const session = localStorage.getItem('f360in-session');
             if (session) {
                 const sessionData = JSON.parse(session);
-                // Session exists - would restore here if needed
-                // For now, always show login
             }
         }
 

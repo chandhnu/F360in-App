@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F360in - Complete Financial Dashboard</title>
+    <title>F360in - Enterprise Financial Dashboard</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
@@ -15,270 +15,194 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .header {
             background: linear-gradient(135deg, #2d5016 0%, #1a3009 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-        }
-
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .logout-btn {
-            background: white;
-            color: #2d5016;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        .logout-btn:hover {
-            background: #f0f0f0;
-        }
-
-        /* KPI DASHBOARD */
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin-bottom: 2rem;
-        }
-
-        .kpi-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border-left: 4px solid #2d5016;
-        }
-
-        .kpi-label {
-            font-size: 11px;
-            color: #999;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .kpi-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #2d5016;
-            margin-bottom: 4px;
-        }
-
-        .kpi-subtext {
-            font-size: 12px;
-            color: #999;
-        }
-
-        /* TABS */
-        .tabs-container {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            overflow: hidden;
-        }
-
-        .tabs-header {
-            display: flex;
-            border-bottom: 2px solid #e0e0e0;
-            overflow-x: auto;
-            background: #fafafa;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 16px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-            color: #666;
-            white-space: nowrap;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
-            min-width: 120px;
-        }
-
-        .tab-btn:hover {
-            background: white;
-            color: #2d5016;
-        }
-
-        .tab-btn.active {
-            color: #2d5016;
-            border-bottom-color: #2d5016;
-            background: white;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 2rem;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* SECTIONS */
-        .section {
-            background: #f9f9f9;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-        }
-
-        .section-header {
-            background: white;
-            padding: 16px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #e0e0e0;
-            transition: all 0.2s;
-        }
-
-        .section-header:hover {
-            background: #f5f5f5;
-        }
-
-        .section-header h3 {
-            font-size: 16px;
-            font-weight: 700;
+            min-height: 100vh;
             color: #333;
         }
 
-        .section-toggle {
-            font-size: 20px;
-            transition: transform 0.2s;
-        }
-
-        .section.expanded .section-toggle {
-            transform: rotate(180deg);
-        }
-
-        .section-content {
-            display: none;
-            padding: 1.5rem;
-            background: white;
-        }
-
-        .section.expanded .section-content {
-            display: block;
-        }
-
-        /* FORM FIELDS */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
+        /* LOGIN SCREEN */
+        .login-screen {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, #2d5016 0%, #1a3009 100%);
         }
 
-        .form-group label {
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #333;
+        .login-card {
+            background: #f8ebdf;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 450px;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
+        .login-header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .login-header-logo {
+            max-width: 350px !important;
+            height: auto !important;
+            margin: 0 auto !important;
+            display: block !important;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .login-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .user-btn {
+            padding: 16px;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
             font-size: 13px;
-            font-family: inherit;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
         }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        .user-btn:hover {
+            background: #e8f5e9;
+            border-color: #2d5016;
+            color: #2d5016;
+        }
+
+        .user-btn.active {
+            background: linear-gradient(135deg, #2d5016 0%, #1a3009 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .password-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .password-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .password-group input:focus {
             outline: none;
             border-color: #2d5016;
             box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
         }
 
-        /* DATA ITEMS */
-        .data-item {
-            background: #f5f5f5;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .data-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .data-item-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .delete-btn {
-            background: #e34948;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 11px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .delete-btn:hover {
-            background: #c62828;
-        }
-
-        /* BUTTONS */
-        .btn {
+        .login-btn {
+            width: 100%;
+            padding: 12px;
             background: linear-gradient(135deg, #2d5016 0%, #1a3009 100%);
             color: white;
             border: none;
-            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(45, 80, 22, 0.3);
+        }
+
+        .error-msg {
+            color: #e34948;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* DASHBOARD */
+        .dashboard {
+            display: none;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .top-bar {
+            background: white;
+            border-bottom: 2px solid #2d5016;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .top-bar-left img {
+            height: 40px;
+            width: auto;
+        }
+
+        .top-bar-center {
+            flex: 1;
+            margin-left: 2rem;
+        }
+
+        .top-bar-center h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d5016;
+            margin: 0;
+        }
+
+        .top-bar-center p {
+            font-size: 12px;
+            color: #999;
+            margin: 0;
+        }
+
+        .top-bar-right {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #2d5016 0%, #1a3009 100%);
+            color: white;
+            border: none;
             border-radius: 6px;
             font-weight: 600;
             font-size: 13px;
@@ -301,22 +225,302 @@
             background: #e0e0e0;
         }
 
-        .btn-add {
-            background: #2d5016;
-            margin-top: 1rem;
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 2rem;
         }
 
-        .section-total {
-            background: #e8f5e9;
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             border-left: 4px solid #2d5016;
+        }
+
+        .kpi-label {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #2d5016;
+        }
+
+        .kpi-subtext {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 2rem;
+            background: white;
             padding: 1rem;
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -17px;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            color: #2d5016;
+            border-bottom-color: #2d5016;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* FUNNEL STYLES */
+        .funnel-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 2rem;
+        }
+
+        .funnel-level {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 5px solid #2d5016;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .funnel-level.level-1 { border-left-color: #d32f2f; background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); }
+        .funnel-level.level-2 { border-left-color: #f57c00; background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); }
+        .funnel-level.level-3 { border-left-color: #fbc02d; background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%); }
+        .funnel-level.level-4 { border-left-color: #1976d2; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
+        .funnel-level.level-5 { border-left-color: #7b1fa2; background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); }
+        .funnel-level.level-6 { border-left-color: #0097a7; background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); }
+        .funnel-level.level-7 { border-left-color: #388e3c; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); }
+        .funnel-level.level-8 { border-left-color: #2d5016; background: linear-gradient(135deg, #e8f5e9 0%, #a5d6a7 100%); }
+
+        .funnel-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .funnel-number {
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: #2d5016;
+        }
+
+        .funnel-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .funnel-description {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .funnel-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .metric-item {
+            background: white;
+            padding: 12px;
             border-radius: 6px;
-            margin-top: 1.5rem;
+            font-size: 13px;
+            border-left: 3px solid #2d5016;
+        }
+
+        .metric-label {
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .metric-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d5016;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .form-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #2d5016;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2d5016;
+            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 350px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #2d5016;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .project-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: #e8f5e9;
+            color: #2d5016;
             font-weight: 600;
         }
 
+        .project-phase {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .rental-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .rental-table th {
+            background: #f5f5f5;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #2d5016;
+        }
+
+        .rental-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .rental-table tr:hover {
+            background: #f9f9f9;
+        }
+
         @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
             .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -324,316 +528,270 @@
                 grid-template-columns: 1fr;
             }
 
-            .tab-btn {
-                min-width: 100px;
-                padding: 12px;
+            .funnel-metrics {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- HEADER -->
-        <div class="header">
-            <div>
-                <h1>F360in - Financial Dashboard</h1>
-                <p id="userDisplay">Chandhnu Parthiban</p>
+    <!-- LOGIN SCREEN -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="./6.png" alt="F360in" class="login-header-logo">
             </div>
-            <button class="logout-btn" onclick="handleLogout()">Logout</button>
+
+            <div class="login-content">
+                <div style="margin-bottom: 2rem;">
+                    <p style="font-size: 13px; color: #666; margin-bottom: 1rem;">Select User Profile:</p>
+                    <div class="user-grid" id="userGrid"></div>
+                </div>
+
+                <div class="password-group">
+                    <input type="password" id="passwordInput" placeholder="Enter password" required>
+                </div>
+
+                <button class="login-btn" onclick="handleLogin()">Access Dashboard</button>
+                <div class="error-msg" id="loginError"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard" id="dashboard">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <img src="./6.png" alt="F360in">
+            </div>
+            <div class="top-bar-center">
+                <h2 id="userNameDisplay">F360in</h2>
+                <p id="userRoleDisplay">Enterprise Financial Dashboard</p>
+            </div>
+            <div class="top-bar-right">
+                <button class="btn btn-secondary" onclick="handleLogout()">Logout</button>
+            </div>
         </div>
 
-        <!-- KPI DASHBOARD -->
-        <div class="kpi-grid" id="kpiGrid"></div>
+        <div class="container">
+            <!-- KPI CARDS -->
+            <div class="kpi-grid" id="kpiGrid"></div>
 
-        <!-- TABS CONTAINER -->
-        <div class="tabs-container">
-            <div class="tabs-header" id="tabsHeader"></div>
+            <!-- MAIN TABS -->
+            <div class="tabs" id="mainTabs"></div>
 
-            <!-- TAB 1: BALANCE SHEET -->
-            <div id="tab-balance-sheet" class="tab-content active">
-                <!-- Assets -->
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>ASSETS</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="assets-list"></div>
-                        <button class="btn btn-add" onclick="addAsset()">+ Add Asset</button>
-                        <div class="section-total" id="assets-total">Total Assets: ₹0</div>
-                    </div>
-                </div>
-
-                <!-- Liabilities -->
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>LIABILITIES</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="liabilities-list"></div>
-                        <button class="btn btn-add" onclick="addLiability()">+ Add Liability</button>
-                        <div class="section-total" id="liabilities-total">Total Liabilities: ₹0</div>
-                    </div>
+            <!-- TAB: FINANCIAL DATA -->
+            <div id="tab-data" class="tab-content active">
+                <div class="form-section">
+                    <h3>Financial Data Input</h3>
+                    <div id="dataContainer"></div>
                 </div>
             </div>
 
-            <!-- TAB 2: INCOME -->
-            <div id="tab-income" class="tab-content">
-                <!-- Employment Income -->
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>EMPLOYMENT INCOME</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="employment-income-list"></div>
-                        <button class="btn btn-add" onclick="addEmploymentIncome()">+ Add Income</button>
-                        <div class="section-total" id="employment-income-total">Total: ₹0</div>
-                    </div>
-                </div>
-
-                <!-- Investment Income -->
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>INVESTMENT INCOME</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="investment-income-list"></div>
-                        <button class="btn btn-add" onclick="addInvestmentIncome()">+ Add Income</button>
-                        <div class="section-total" id="investment-income-total">Total: ₹0</div>
-                    </div>
-                </div>
-
-                <!-- Other Income -->
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>OTHER INCOME</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="other-income-list"></div>
-                        <button class="btn btn-add" onclick="addOtherIncome()">+ Add Income</button>
-                        <div class="section-total" id="other-income-total">Total: ₹0</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 3: EXPENSES -->
-            <div id="tab-expenses" class="tab-content">
-                <!-- Fixed Monthly -->
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>FIXED MONTHLY EXPENSES</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="fixed-monthly-list"></div>
-                        <button class="btn btn-add" onclick="addFixedMonthlyExpense()">+ Add Expense</button>
-                        <div class="section-total" id="fixed-monthly-total">Total: ₹0</div>
-                    </div>
-                </div>
-
-                <!-- Fixed Yearly -->
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>FIXED YEARLY EXPENSES</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="fixed-yearly-list"></div>
-                        <button class="btn btn-add" onclick="addFixedYearlyExpense()">+ Add Expense</button>
-                        <div class="section-total" id="fixed-yearly-total">Total: ₹0</div>
-                    </div>
-                </div>
-
-                <!-- Variable Expenses -->
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>VARIABLE EXPENSES</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="variable-expenses-list"></div>
-                        <button class="btn btn-add" onclick="addVariableExpense()">+ Add Expense</button>
-                        <div class="section-total" id="variable-expenses-total">Total: ₹0</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 4: INVESTMENTS -->
-            <div id="tab-investments" class="tab-content">
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>INVESTMENTS</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="investments-list"></div>
-                        <button class="btn btn-add" onclick="addInvestment()">+ Add Investment</button>
-                        <div class="section-total" id="investments-total">Total: ₹0</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 5: INSURANCE -->
-            <div id="tab-insurance" class="tab-content">
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>INSURANCE POLICIES</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="insurance-list"></div>
-                        <button class="btn btn-add" onclick="addInsurance()">+ Add Policy</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 6: LOANS & LIABILITIES -->
-            <div id="tab-loans" class="tab-content">
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>LOANS & LIABILITIES</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="loans-list"></div>
-                        <button class="btn btn-add" onclick="addLoan()">+ Add Loan</button>
-                        <div class="section-total" id="loans-total">Total Outstanding: ₹0</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 7: FINANCIAL GOALS -->
-            <div id="tab-goals" class="tab-content">
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>FINANCIAL GOALS</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="goals-list"></div>
-                        <button class="btn btn-add" onclick="addGoal()">+ Add Goal</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 8: EMERGENCY FUND -->
-            <div id="tab-emergency" class="tab-content">
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>EMERGENCY FUND</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Target Months</label>
-                                <input type="number" id="emergency-months" placeholder="12">
-                            </div>
-                            <div class="form-group">
-                                <label>Monthly Essential Expenses (₹)</label>
-                                <input type="number" id="emergency-monthly-expenses" placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label>Required Emergency Corpus (₹)</label>
-                                <input type="number" id="emergency-required" placeholder="0" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Current Emergency Corpus (₹)</label>
-                                <input type="number" id="emergency-current" placeholder="0">
-                            </div>
-                        </div>
-                        <button class="btn" onclick="saveEmergencyFund()">Save</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 9: RECURRING COMMITMENTS -->
-            <div id="tab-recurring" class="tab-content">
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>RECURRING COMMITMENTS</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <div id="recurring-list"></div>
-                        <button class="btn btn-add" onclick="addRecurringCommitment()">+ Add Commitment</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 10: FINANCIAL WELLNESS FUNNEL -->
+            <!-- TAB: FINANCIAL WELLNESS FUNNEL -->
             <div id="tab-funnel" class="tab-content">
-                <div id="funnel-container"></div>
+                <div class="funnel-container" id="funnelContainer"></div>
+            </div>
+
+            <!-- TAB: KAY COLLECTIVES PROJECTS -->
+            <div id="tab-projects" class="tab-content">
+                <div class="form-section">
+                    <h3>Kay Collectives - Business Projects</h3>
+                    <div id="projectsContainer"></div>
+                </div>
+            </div>
+
+            <!-- TAB: HUF RENTAL TRACKING -->
+            <div id="tab-rental" class="tab-content">
+                <div class="form-section">
+                    <h3>HUF Rental Property Tracking</h3>
+                    <div id="rentalContainer"></div>
+                </div>
+            </div>
+
+            <!-- TAB: EXCEL UPLOAD -->
+            <div id="tab-upload" class="tab-content">
+                <div class="form-section">
+                    <h3>Excel Data Upload</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem; font-size: 14px;">
+                        Upload your F360in Excel sheet to auto-populate all financial data.
+                    </p>
+                    <div style="border: 2px dashed #2d5016; border-radius: 8px; padding: 2rem; text-align: center; cursor: pointer; margin-bottom: 2rem;" id="uploadArea">
+                        <div style="font-size: 48px; margin-bottom: 1rem;">📁</div>
+                        <div style="font-size: 14px; font-weight: 600; margin-bottom: 0.5rem;">Drop Excel file here</div>
+                        <input type="file" id="excelUpload" accept=".xlsx,.xls" style="display: none;">
+                    </div>
+                    <div id="uploadStatus"></div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // DATA STRUCTURE
-        const data = {
-            profile: 'Chandhnu Parthiban',
-            assets: [],
-            liabilities: [],
-            employmentIncome: [],
-            investmentIncome: [],
-            otherIncome: [],
-            fixedMonthlyExpenses: [],
-            fixedYearlyExpenses: [],
-            variableExpenses: [],
-            investments: [],
-            insurance: [],
-            loans: [],
-            goals: [],
-            emergencyFund: {},
-            recurringCommitments: []
-        };
+        // USER PROFILES
+        const users = [
+            { id: 'chandhnu', name: 'Chandhnu', role: 'Individual' },
+            { id: 'gayathri', name: 'Gayathri Parthiban', role: 'Individual' },
+            { id: 'priyadharsini', name: 'Priyadharsini', role: 'Individual' },
+            { id: 'kayilan', name: 'Kayilan Dev', role: 'Individual' },
+            { id: 'chandhnu-huf', name: 'Chandhnu Parthiban HUF', role: 'HUF' },
+            { id: 'kay-collectives', name: 'Kay Collectives', role: 'Business Portfolio' },
+            { id: 'koil-trust', name: 'Sri Siva Subramaniya Koil Trust', role: 'Trust' }
+        ];
+
+        // KAY COLLECTIVES SUB-PROJECTS
+        const kayCollectivesProjects = [
+            { name: 'Kay Collectives', status: '🟡 Building', phase: 'Parent/master portfolio' },
+            { name: 'Cub & Cotton', status: '🟢 WhatsApp Active', phase: 'Instagram launch pending' },
+            { name: 'South Loom Sarees', status: '🟢 WhatsApp Active', phase: 'Instagram launch pending' },
+            { name: 'Veya', status: '🟢 WhatsApp Active', phase: 'Instagram launch pending' },
+            { name: 'Vano', status: '🟢 WhatsApp Active', phase: 'Instagram launch pending' },
+            { name: 'Clay & Chlorophyll', status: '🟡 Planning', phase: 'Garden Café + Nursery + Pottery + Landscaping' },
+            { name: 'Pickleball Project', status: '🟡 Planning', phase: 'Ground vs terrace feasibility' },
+            { name: 'Nira', status: '🟡 Planning', phase: 'Hydroponic Farms' },
+            { name: 'Aadum', status: '🟡 Planning', phase: 'Organic Mutton' },
+            { name: 'Vana', status: '🟡 Concept', phase: 'Miyawaki Forest' },
+            { name: 'CarbonVana', status: '🟡 Concept', phase: 'Carbon Credits' },
+            { name: 'Petora', status: '🟡 Concept', phase: 'Pet Lifestyle / Trading' },
+            { name: 'Burst & Bloom', status: '🟡 Concept', phase: 'Festive / Seasonal' },
+            { name: 'Moksha Morsel', status: '⚪ Concept', phase: 'Food / Specialty Brand' }
+        ];
 
         // 8-LEVEL FINANCIAL WELLNESS FUNNEL
         const funnelLevels = [
-            { number: 1, title: 'Family Protection', description: 'Protect from major financial shocks', metrics: ['Life Insurance', 'Health Insurance', 'Personal Accident', 'Nomination', 'Estate Planning'] },
-            { number: 2, title: 'Emergency Readiness', description: 'Build financial buffer', metrics: ['Emergency Fund', 'Essential Expenses', 'Liquid Assets', 'Contingency Planning'] },
-            { number: 3, title: 'Financial Stability', description: 'Control recurring finances', metrics: ['Monthly Income', 'Fixed Expenses', 'EMI Burden', 'Monthly Surplus', 'Savings Rate'] },
-            { number: 4, title: 'Debt Management', description: 'Control liabilities', metrics: ['Home Loans', 'Car Loans', 'Credit Card', 'Debt-to-Income Ratio'] },
-            { number: 5, title: 'Wealth Accumulation', description: 'Convert surplus to assets', metrics: ['FDs', 'Mutual Funds', 'Equity', 'Gold', 'Real Estate'] },
-            { number: 6, title: 'Financial Goals', description: 'Connect to life objectives', metrics: ['Education', 'Home', 'Travel', 'Retirement', 'Goal Progress'] },
-            { number: 7, title: 'Wealth Optimisation', description: 'Make wealth work efficiently', metrics: ['Asset Allocation', 'Portfolio Performance', 'XIRR', 'Tax Efficiency'] },
-            { number: 8, title: 'Financial Independence', description: 'Live without employment income', metrics: ['Annual Expenses', 'FI Corpus', 'Passive Income', 'Years to FI'] }
+            {
+                number: 1,
+                title: 'Family Protection',
+                description: 'Protect the family from major financial shocks first.',
+                metrics: ['Life Insurance', 'Health Insurance', 'Personal Accident Cover', 'Nomination', 'Estate Planning', 'Dependent Protection']
+            },
+            {
+                number: 2,
+                title: 'Emergency Readiness',
+                description: 'Build the financial buffer required to handle unexpected events.',
+                metrics: ['Emergency Fund', 'Essential Monthly Expenses', '3/6/12-month Coverage', 'Liquid Assets', 'Contingency Planning', 'Emergency Fund Gap']
+            },
+            {
+                number: 3,
+                title: 'Financial Stability',
+                description: 'Bring recurring household finances under control.',
+                metrics: ['Monthly Income', 'Fixed Expenses', 'Variable Expenses', 'EMI Burden', 'Monthly Surplus', 'Savings Rate']
+            },
+            {
+                number: 4,
+                title: 'Debt Management',
+                description: 'Control liabilities and reduce the cost of borrowing.',
+                metrics: ['Home Loans', 'Car Loans', 'Personal Loans', 'Credit Card Outstanding', 'Debt-to-Income Ratio', 'Repayment Strategy']
+            },
+            {
+                number: 5,
+                title: 'Wealth Accumulation',
+                description: 'Systematically convert financial surplus into productive assets.',
+                metrics: ['Fixed Deposits', 'Mutual Funds', 'Direct Equity', 'Gold', 'Real Estate', 'Bonds & ETFs']
+            },
+            {
+                number: 6,
+                title: 'Financial Goals',
+                description: 'Connect wealth creation to meaningful life objectives.',
+                metrics: ['Child Education', 'Home Purchase', 'Vehicle Purchase', 'Travel', 'Retirement', 'Goal Progress %']
+            },
+            {
+                number: 7,
+                title: 'Wealth Optimisation',
+                description: 'Make accumulated wealth work more efficiently.',
+                metrics: ['Asset Allocation', 'Portfolio Performance', 'XIRR', 'Tax Efficiency', 'Diversification', 'Risk Management']
+            },
+            {
+                number: 8,
+                title: 'Financial Independence',
+                description: 'Measure whether the family can live without depending on employment income.',
+                metrics: ['Annual Expenses', 'FI Corpus Required', 'Current FI Assets', 'Passive Income', 'Years to FI', 'FI Status']
+            }
         ];
 
-        // TABS CONFIGURATION
-        const tabs = [
-            { id: 'balance-sheet', label: 'Balance Sheet', icon: '📊' },
-            { id: 'income', label: 'Income', icon: '💰' },
-            { id: 'expenses', label: 'Expenses', icon: '💸' },
-            { id: 'investments', label: 'Investments', icon: '📈' },
-            { id: 'insurance', label: 'Insurance', icon: '🛡️' },
-            { id: 'loans', label: 'Loans', icon: '🏦' },
-            { id: 'goals', label: 'Goals', icon: '🎯' },
-            { id: 'emergency', label: 'Emergency Fund', icon: '🆘' },
-            { id: 'recurring', label: 'Recurring', icon: '🔄' },
-            { id: 'funnel', label: 'Funnel', icon: '📊' }
-        ];
+        let currentUser = null;
+        const PASSWORD = 'f360in2024';
 
         // INITIALIZATION
         function init() {
-            loadData();
+            renderUserGrid();
+            setupUploadArea();
+        }
+
+        function renderUserGrid() {
+            const grid = document.getElementById('userGrid');
+            grid.innerHTML = users.map(user => `
+                <button class="user-btn" onclick="selectUser('${user.id}', this)">
+                    ${user.name}<br>
+                    <span style="font-size: 11px; opacity: 0.7;">${user.role}</span>
+                </button>
+            `).join('');
+        }
+
+        function selectUser(userId, element) {
+            currentUser = users.find(u => u.id === userId);
+            document.querySelectorAll('.user-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function handleLogin() {
+            const password = document.getElementById('passwordInput').value;
+            
+            if (!currentUser) {
+                document.getElementById('loginError').textContent = 'Please select a user profile';
+                return;
+            }
+
+            if (password !== PASSWORD) {
+                document.getElementById('loginError').textContent = 'Incorrect password';
+                return;
+            }
+
+            localStorage.setItem('f360inUser', JSON.stringify(currentUser));
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+            loadDashboard();
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('f360inUser');
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('passwordInput').value = '';
+            document.querySelectorAll('.user-btn').forEach(btn => btn.classList.remove('active'));
+        }
+
+        function loadDashboard() {
+            document.getElementById('userNameDisplay').textContent = currentUser.name;
+            document.getElementById('userRoleDisplay').textContent = currentUser.role;
+            
             renderTabs();
-            renderAllSections();
             renderKPIs();
             renderFunnel();
+            
+            if (currentUser.id === 'kay-collectives') {
+                renderProjects();
+            }
         }
 
         function renderTabs() {
-            const tabsHeader = document.getElementById('tabsHeader');
-            tabsHeader.innerHTML = tabs.map((tab, idx) => `
-                <button class="tab-btn ${idx === 0 ? 'active' : ''}" onclick="switchTab('tab-${tab.id}', this)">
-                    ${tab.label}
-                </button>
-            `).join('');
+            const tabs = document.getElementById('mainTabs');
+            let tabHTML = `
+                <button class="tab-btn active" onclick="switchTab('tab-data', this)">Financial Data</button>
+                <button class="tab-btn" onclick="switchTab('tab-funnel', this)">Financial Funnel</button>
+                <button class="tab-btn" onclick="switchTab('tab-upload', this)">Excel Upload</button>
+            `;
+
+            if (currentUser.id === 'kay-collectives') {
+                tabHTML += `<button class="tab-btn" onclick="switchTab('tab-projects', this)">Projects</button>`;
+            }
+
+            if (currentUser.id === 'chandhnu-huf') {
+                tabHTML += `<button class="tab-btn" onclick="switchTab('tab-rental', this)">HUF Rentals</button>`;
+            }
+
+            tabs.innerHTML = tabHTML;
         }
 
         function switchTab(tabId, element) {
@@ -643,707 +801,16 @@
             element.classList.add('active');
         }
 
-        function toggleSection(header) {
-            header.closest('.section').classList.toggle('expanded');
-        }
-
-        // DATA MANAGEMENT
-        function saveData() {
-            localStorage.setItem('f360in-data', JSON.stringify(data));
-        }
-
-        function loadData() {
-            const stored = localStorage.getItem('f360in-data');
-            if (stored) {
-                Object.assign(data, JSON.parse(stored));
-            }
-        }
-
-        // ADD FUNCTIONS
-        function addAsset() {
-            const asset = {
-                id: Date.now(),
-                category: '',
-                item: '',
-                quantity: '',
-                value: 0
-            };
-            data.assets.push(asset);
-            renderAssets();
-            saveData();
-        }
-
-        function addLiability() {
-            const liability = {
-                id: Date.now(),
-                category: '',
-                item: '',
-                amount: 0,
-                interestRate: 0
-            };
-            data.liabilities.push(liability);
-            renderLiabilities();
-            saveData();
-        }
-
-        function addEmploymentIncome() {
-            data.employmentIncome.push({
-                id: Date.now(),
-                type: '',
-                amount: 0,
-                frequency: 'Monthly'
-            });
-            renderEmploymentIncome();
-            saveData();
-        }
-
-        function addInvestmentIncome() {
-            data.investmentIncome.push({
-                id: Date.now(),
-                type: '',
-                amount: 0,
-                frequency: 'Yearly'
-            });
-            renderInvestmentIncome();
-            saveData();
-        }
-
-        function addOtherIncome() {
-            data.otherIncome.push({
-                id: Date.now(),
-                type: '',
-                amount: 0,
-                frequency: 'Monthly'
-            });
-            renderOtherIncome();
-            saveData();
-        }
-
-        function addFixedMonthlyExpense() {
-            data.fixedMonthlyExpenses.push({
-                id: Date.now(),
-                category: '',
-                amount: 0
-            });
-            renderFixedMonthlyExpenses();
-            saveData();
-        }
-
-        function addFixedYearlyExpense() {
-            data.fixedYearlyExpenses.push({
-                id: Date.now(),
-                category: '',
-                amount: 0
-            });
-            renderFixedYearlyExpenses();
-            saveData();
-        }
-
-        function addVariableExpense() {
-            data.variableExpenses.push({
-                id: Date.now(),
-                category: '',
-                amount: 0
-            });
-            renderVariableExpenses();
-            saveData();
-        }
-
-        function addInvestment() {
-            data.investments.push({
-                id: Date.now(),
-                type: '',
-                description: '',
-                amount: 0,
-                date: new Date().toISOString().split('T')[0]
-            });
-            renderInvestments();
-            saveData();
-        }
-
-        function addInsurance() {
-            data.insurance.push({
-                id: Date.now(),
-                policyType: '',
-                insurer: '',
-                sumAssured: 0,
-                premium: 0,
-                premiumFrequency: 'Yearly'
-            });
-            renderInsurance();
-            saveData();
-        }
-
-        function addLoan() {
-            data.loans.push({
-                id: Date.now(),
-                loanType: '',
-                lender: '',
-                amount: 0,
-                interestRate: 0,
-                emi: 0,
-                tenure: 0
-            });
-            renderLoans();
-            saveData();
-        }
-
-        function addGoal() {
-            data.goals.push({
-                id: Date.now(),
-                goalName: '',
-                targetAmount: 0,
-                currentAmount: 0,
-                targetDate: '',
-                monthlyContribution: 0
-            });
-            renderGoals();
-            saveData();
-        }
-
-        function addRecurringCommitment() {
-            data.recurringCommitments.push({
-                id: Date.now(),
-                name: '',
-                frequency: 'Monthly',
-                amount: 0
-            });
-            renderRecurringCommitments();
-            saveData();
-        }
-
-        // DELETE FUNCTIONS
-        function deleteItem(type, id) {
-            data[type] = data[type].filter(item => item.id !== id);
-            saveData();
-            renderAllSections();
-        }
-
-        // RENDER FUNCTIONS
-        function renderAssets() {
-            const list = document.getElementById('assets-list');
-            let total = 0;
-            list.innerHTML = data.assets.map(asset => {
-                total += parseFloat(asset.value) || 0;
-                return `
-                    <div class="data-item">
-                        <div class="data-item-header">
-                            <div class="data-item-title">${asset.item || 'New Asset'}</div>
-                            <button class="delete-btn" onclick="deleteItem('assets', ${asset.id})">Delete</button>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Category</label>
-                                <input type="text" value="${asset.category}" onchange="asset.category=this.value; saveData()">
-                            </div>
-                            <div class="form-group">
-                                <label>Item Name</label>
-                                <input type="text" value="${asset.item}" onchange="asset.item=this.value; renderAssets()">
-                            </div>
-                            <div class="form-group">
-                                <label>Quantity</label>
-                                <input type="number" value="${asset.quantity}" onchange="asset.quantity=this.value; saveData()">
-                            </div>
-                            <div class="form-group">
-                                <label>Current Value (₹)</label>
-                                <input type="number" value="${asset.value}" onchange="asset.value=this.value; renderAssets()">
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('assets-total').innerHTML = `Total Assets: ₹${total.toLocaleString()}`;
-        }
-
-        function renderLiabilities() {
-            const list = document.getElementById('liabilities-list');
-            let total = 0;
-            list.innerHTML = data.liabilities.map(liability => {
-                total += parseFloat(liability.amount) || 0;
-                return `
-                    <div class="data-item">
-                        <div class="data-item-header">
-                            <div class="data-item-title">${liability.item || 'New Liability'}</div>
-                            <button class="delete-btn" onclick="deleteItem('liabilities', ${liability.id})">Delete</button>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Category</label>
-                                <input type="text" value="${liability.category}" onchange="liability.category=this.value; saveData()">
-                            </div>
-                            <div class="form-group">
-                                <label>Item Name</label>
-                                <input type="text" value="${liability.item}" onchange="liability.item=this.value; renderLiabilities()">
-                            </div>
-                            <div class="form-group">
-                                <label>Amount (₹)</label>
-                                <input type="number" value="${liability.amount}" onchange="liability.amount=this.value; renderLiabilities()">
-                            </div>
-                            <div class="form-group">
-                                <label>Interest Rate (%)</label>
-                                <input type="number" value="${liability.interestRate}" onchange="liability.interestRate=this.value; saveData()">
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('liabilities-total').innerHTML = `Total Liabilities: ₹${total.toLocaleString()}`;
-        }
-
-        function renderEmploymentIncome() {
-            const list = document.getElementById('employment-income-list');
-            let total = 0;
-            list.innerHTML = data.employmentIncome.map(income => {
-                const monthlyAmount = income.frequency === 'Monthly' ? income.amount : income.amount / 12;
-                total += monthlyAmount;
-                return `
-                    <div class="data-item">
-                        <div class="data-item-header">
-                            <div class="data-item-title">${income.type || 'New Income'}</div>
-                            <button class="delete-btn" onclick="deleteItem('employmentIncome', ${income.id})">Delete</button>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Type</label>
-                                <input type="text" value="${income.type}" onchange="income.type=this.value; renderEmploymentIncome()">
-                            </div>
-                            <div class="form-group">
-                                <label>Amount (₹)</label>
-                                <input type="number" value="${income.amount}" onchange="income.amount=this.value; renderEmploymentIncome()">
-                            </div>
-                            <div class="form-group">
-                                <label>Frequency</label>
-                                <select onchange="income.frequency=this.value; renderEmploymentIncome()">
-                                    <option ${income.frequency === 'Monthly' ? 'selected' : ''}>Monthly</option>
-                                    <option ${income.frequency === 'Quarterly' ? 'selected' : ''}>Quarterly</option>
-                                    <option ${income.frequency === 'Yearly' ? 'selected' : ''}>Yearly</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('employment-income-total').innerHTML = `Total (Monthly Avg): ₹${total.toLocaleString()}`;
-        }
-
-        function renderInvestmentIncome() {
-            const list = document.getElementById('investment-income-list');
-            let total = 0;
-            list.innerHTML = data.investmentIncome.map(income => {
-                const monthlyAmount = income.frequency === 'Monthly' ? income.amount : income.amount / 12;
-                total += monthlyAmount;
-                return `
-                    <div class="data-item">
-                        <div class="data-item-header">
-                            <div class="data-item-title">${income.type || 'New Income'}</div>
-                            <button class="delete-btn" onclick="deleteItem('investmentIncome', ${income.id})">Delete</button>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Type</label>
-                                <input type="text" value="${income.type}" onchange="income.type=this.value; renderInvestmentIncome()">
-                            </div>
-                            <div class="form-group">
-                                <label>Amount (₹)</label>
-                                <input type="number" value="${income.amount}" onchange="income.amount=this.value; renderInvestmentIncome()">
-                            </div>
-                            <div class="form-group">
-                                <label>Frequency</label>
-                                <select onchange="income.frequency=this.value; renderInvestmentIncome()">
-                                    <option ${income.frequency === 'Monthly' ? 'selected' : ''}>Monthly</option>
-                                    <option ${income.frequency === 'Quarterly' ? 'selected' : ''}>Quarterly</option>
-                                    <option ${income.frequency === 'Yearly' ? 'selected' : ''}>Yearly</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('investment-income-total').innerHTML = `Total (Monthly Avg): ₹${total.toLocaleString()}`;
-        }
-
-        function renderOtherIncome() {
-            const list = document.getElementById('other-income-list');
-            let total = 0;
-            list.innerHTML = data.otherIncome.map(income => {
-                const monthlyAmount = income.frequency === 'Monthly' ? income.amount : income.amount / 12;
-                total += monthlyAmount;
-                return `
-                    <div class="data-item">
-                        <div class="data-item-header">
-                            <div class="data-item-title">${income.type || 'New Income'}</div>
-                            <button class="delete-btn" onclick="deleteItem('otherIncome', ${income.id})">Delete</button>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Type</label>
-                                <input type="text" value="${income.type}" onchange="income.type=this.value; renderOtherIncome()">
-                            </div>
-                            <div class="form-group">
-                                <label>Amount (₹)</label>
-                                <input type="number" value="${income.amount}" onchange="income.amount=this.value; renderOtherIncome()">
-                            </div>
-                            <div class="form-group">
-                                <label>Frequency</label>
-                                <select onchange="income.frequency=this.value; renderOtherIncome()">
-                                    <option ${income.frequency === 'Monthly' ? 'selected' : ''}>Monthly</option>
-                                    <option ${income.frequency === 'Quarterly' ? 'selected' : ''}>Quarterly</option>
-                                    <option ${income.frequency === 'Yearly' ? 'selected' : ''}>Yearly</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('other-income-total').innerHTML = `Total (Monthly Avg): ₹${total.toLocaleString()}`;
-        }
-
-        function renderFixedMonthlyExpenses() {
-            const list = document.getElementById('fixed-monthly-list');
-            let total = 0;
-            list.innerHTML = data.fixedMonthlyExpenses.map(expense => {
-                total += parseFloat(expense.amount) || 0;
-                return `
-                    <div class="data-item">
-                        <div class="data-item-header">
-                            <div class="data-item-title">${expense.category || 'New Expense'}</div>
-                            <button class="delete-btn" onclick="deleteItem('fixedMonthlyExpenses', ${expense.id})">Delete</button>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Category</label>
-                                <input type="text" value="${expense.category}" onchange="expense.category=this.value; renderFixedMonthlyExpenses()">
-                            </div>
-                            <div class="form-group">
-                                <label>Amount (₹)</label>
-                                <input type="number" value="${expense.amount}" onchange="expense.amount=this.value; renderFixedMonthlyExpenses()">
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('fixed-monthly-total').innerHTML = `Total (Monthly): ₹${total.toLocaleString()}`;
-        }
-
-        function renderFixedYearlyExpenses() {
-            const list = document.getElementById('fixed-yearly-list');
-            let total = 0;
-            list.innerHTML = data.fixedYearlyExpenses.map(expense => {
-                total += parseFloat(expense.amount) || 0;
-                return `
-                    <div class="data-item">
-                        <div class="data-item-header">
-                            <div class="data-item-title">${expense.category || 'New Expense'}</div>
-                            <button class="delete-btn" onclick="deleteItem('fixedYearlyExpenses', ${expense.id})">Delete</button>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Category</label>
-                                <input type="text" value="${expense.category}" onchange="expense.category=this.value; renderFixedYearlyExpenses()">
-                            </div>
-                            <div class="form-group">
-                                <label>Annual Amount (₹)</label>
-                                <input type="number" value="${expense.amount}" onchange="expense.amount=this.value; renderFixedYearlyExpenses()">
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('fixed-yearly-total').innerHTML = `Total (Yearly): ₹${total.toLocaleString()}`;
-        }
-
-        function renderVariableExpenses() {
-            const list = document.getElementById('variable-expenses-list');
-            let total = 0;
-            list.innerHTML = data.variableExpenses.map(expense => {
-                total += parseFloat(expense.amount) || 0;
-                return `
-                    <div class="data-item">
-                        <div class="data-item-header">
-                            <div class="data-item-title">${expense.category || 'New Expense'}</div>
-                            <button class="delete-btn" onclick="deleteItem('variableExpenses', ${expense.id})">Delete</button>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Category</label>
-                                <input type="text" value="${expense.category}" onchange="expense.category=this.value; renderVariableExpenses()">
-                            </div>
-                            <div class="form-group">
-                                <label>Average Monthly (₹)</label>
-                                <input type="number" value="${expense.amount}" onchange="expense.amount=this.value; renderVariableExpenses()">
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('variable-expenses-total').innerHTML = `Total (Monthly Avg): ₹${total.toLocaleString()}`;
-        }
-
-        function renderInvestments() {
-            const list = document.getElementById('investments-list');
-            let total = 0;
-            list.innerHTML = data.investments.map(inv => {
-                total += parseFloat(inv.amount) || 0;
-                return `
-                    <div class="data-item">
-                        <div class="data-item-header">
-                            <div class="data-item-title">${inv.description || 'New Investment'}</div>
-                            <button class="delete-btn" onclick="deleteItem('investments', ${inv.id})">Delete</button>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Type</label>
-                                <input type="text" value="${inv.type}" onchange="inv.type=this.value; saveData()">
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <input type="text" value="${inv.description}" onchange="inv.description=this.value; renderInvestments()">
-                            </div>
-                            <div class="form-group">
-                                <label>Amount (₹)</label>
-                                <input type="number" value="${inv.amount}" onchange="inv.amount=this.value; renderInvestments()">
-                            </div>
-                            <div class="form-group">
-                                <label>Date</label>
-                                <input type="date" value="${inv.date}" onchange="inv.date=this.value; saveData()">
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('investments-total').innerHTML = `Total Invested: ₹${total.toLocaleString()}`;
-        }
-
-        function renderInsurance() {
-            const list = document.getElementById('insurance-list');
-            list.innerHTML = data.insurance.map(policy => `
-                <div class="data-item">
-                    <div class="data-item-header">
-                        <div class="data-item-title">${policy.policyType || 'New Policy'}</div>
-                        <button class="delete-btn" onclick="deleteItem('insurance', ${policy.id})">Delete</button>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Policy Type</label>
-                            <input type="text" value="${policy.policyType}" onchange="policy.policyType=this.value; renderInsurance()">
-                        </div>
-                        <div class="form-group">
-                            <label>Insurer</label>
-                            <input type="text" value="${policy.insurer}" onchange="policy.insurer=this.value; saveData()">
-                        </div>
-                        <div class="form-group">
-                            <label>Sum Assured (₹)</label>
-                            <input type="number" value="${policy.sumAssured}" onchange="policy.sumAssured=this.value; saveData()">
-                        </div>
-                        <div class="form-group">
-                            <label>Premium (₹)</label>
-                            <input type="number" value="${policy.premium}" onchange="policy.premium=this.value; saveData()">
-                        </div>
-                        <div class="form-group">
-                            <label>Premium Frequency</label>
-                            <select onchange="policy.premiumFrequency=this.value; saveData()">
-                                <option ${policy.premiumFrequency === 'Monthly' ? 'selected' : ''}>Monthly</option>
-                                <option ${policy.premiumFrequency === 'Quarterly' ? 'selected' : ''}>Quarterly</option>
-                                <option ${policy.premiumFrequency === 'Half-Yearly' ? 'selected' : ''}>Half-Yearly</option>
-                                <option ${policy.premiumFrequency === 'Yearly' ? 'selected' : ''}>Yearly</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function renderLoans() {
-            const list = document.getElementById('loans-list');
-            let total = 0;
-            list.innerHTML = data.loans.map(loan => {
-                total += parseFloat(loan.amount) || 0;
-                return `
-                    <div class="data-item">
-                        <div class="data-item-header">
-                            <div class="data-item-title">${loan.loanType || 'New Loan'}</div>
-                            <button class="delete-btn" onclick="deleteItem('loans', ${loan.id})">Delete</button>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Loan Type</label>
-                                <input type="text" value="${loan.loanType}" onchange="loan.loanType=this.value; renderLoans()">
-                            </div>
-                            <div class="form-group">
-                                <label>Lender</label>
-                                <input type="text" value="${loan.lender}" onchange="loan.lender=this.value; saveData()">
-                            </div>
-                            <div class="form-group">
-                                <label>Outstanding Amount (₹)</label>
-                                <input type="number" value="${loan.amount}" onchange="loan.amount=this.value; renderLoans()">
-                            </div>
-                            <div class="form-group">
-                                <label>Interest Rate (%)</label>
-                                <input type="number" value="${loan.interestRate}" onchange="loan.interestRate=this.value; saveData()">
-                            </div>
-                            <div class="form-group">
-                                <label>Monthly EMI (₹)</label>
-                                <input type="number" value="${loan.emi}" onchange="loan.emi=this.value; saveData()">
-                            </div>
-                            <div class="form-group">
-                                <label>Tenure (Years)</label>
-                                <input type="number" value="${loan.tenure}" onchange="loan.tenure=this.value; saveData()">
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('loans-total').innerHTML = `Total Outstanding: ₹${total.toLocaleString()}`;
-        }
-
-        function renderGoals() {
-            const list = document.getElementById('goals-list');
-            list.innerHTML = data.goals.map(goal => `
-                <div class="data-item">
-                    <div class="data-item-header">
-                        <div class="data-item-title">${goal.goalName || 'New Goal'}</div>
-                        <button class="delete-btn" onclick="deleteItem('goals', ${goal.id})">Delete</button>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Goal Name</label>
-                            <input type="text" value="${goal.goalName}" onchange="goal.goalName=this.value; renderGoals()">
-                        </div>
-                        <div class="form-group">
-                            <label>Target Amount (₹)</label>
-                            <input type="number" value="${goal.targetAmount}" onchange="goal.targetAmount=this.value; saveData()">
-                        </div>
-                        <div class="form-group">
-                            <label>Current Amount (₹)</label>
-                            <input type="number" value="${goal.currentAmount}" onchange="goal.currentAmount=this.value; saveData()">
-                        </div>
-                        <div class="form-group">
-                            <label>Target Date</label>
-                            <input type="date" value="${goal.targetDate}" onchange="goal.targetDate=this.value; saveData()">
-                        </div>
-                        <div class="form-group">
-                            <label>Monthly Contribution (₹)</label>
-                            <input type="number" value="${goal.monthlyContribution}" onchange="goal.monthlyContribution=this.value; saveData()">
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function renderRecurringCommitments() {
-            const list = document.getElementById('recurring-list');
-            list.innerHTML = data.recurringCommitments.map(commitment => `
-                <div class="data-item">
-                    <div class="data-item-header">
-                        <div class="data-item-title">${commitment.name || 'New Commitment'}</div>
-                        <button class="delete-btn" onclick="deleteItem('recurringCommitments', ${commitment.id})">Delete</button>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" value="${commitment.name}" onchange="commitment.name=this.value; renderRecurringCommitments()">
-                        </div>
-                        <div class="form-group">
-                            <label>Frequency</label>
-                            <select onchange="commitment.frequency=this.value; saveData()">
-                                <option ${commitment.frequency === 'Monthly' ? 'selected' : ''}>Monthly</option>
-                                <option ${commitment.frequency === 'Quarterly' ? 'selected' : ''}>Quarterly</option>
-                                <option ${commitment.frequency === 'Half-Yearly' ? 'selected' : ''}>Half-Yearly</option>
-                                <option ${commitment.frequency === 'Yearly' ? 'selected' : ''}>Yearly</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Amount (₹)</label>
-                            <input type="number" value="${commitment.amount}" onchange="commitment.amount=this.value; saveData()">
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function saveEmergencyFund() {
-            const months = parseFloat(document.getElementById('emergency-months').value) || 0;
-            const monthlyExpenses = parseFloat(document.getElementById('emergency-monthly-expenses').value) || 0;
-            const required = months * monthlyExpenses;
-            document.getElementById('emergency-required').value = required;
-            data.emergencyFund = {
-                months,
-                monthlyExpenses,
-                required,
-                current: parseFloat(document.getElementById('emergency-current').value) || 0
-            };
-            saveData();
-            renderKPIs();
-        }
-
-        function renderFunnel() {
-            const container = document.getElementById('funnel-container');
-            const html = funnelLevels.map(level => `
-                <div class="section expanded">
-                    <div class="section-header" onclick="toggleSection(this)">
-                        <h3>Level ${level.number}: ${level.title}</h3>
-                        <span class="section-toggle">▼</span>
-                    </div>
-                    <div class="section-content">
-                        <p style="margin-bottom: 1rem; color: #666;">${level.description}</p>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
-                            ${level.metrics.map(metric => `
-                                <div style="background: #e8f5e9; padding: 12px; border-radius: 6px; border-left: 3px solid #2d5016;">
-                                    <div style="font-size: 12px; color: #666; margin-bottom: 4px;">${metric}</div>
-                                    <div style="font-size: 16px; font-weight: 700; color: #2d5016;">—</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-            container.innerHTML = html;
-        }
-
         function renderKPIs() {
-            const grid = document.getElementById('kpiGrid');
-            
-            // Calculate totals
-            const totalAssets = data.assets.reduce((sum, a) => sum + parseFloat(a.value || 0), 0);
-            const totalLiabilities = data.liabilities.reduce((sum, l) => sum + parseFloat(l.amount || 0), 0);
-            const netWorth = totalAssets - totalLiabilities;
-
-            const monthlyEmploymentIncome = data.employmentIncome.reduce((sum, i) => {
-                return sum + (i.frequency === 'Monthly' ? i.amount : i.amount / 12);
-            }, 0);
-            const monthlyInvestmentIncome = data.investmentIncome.reduce((sum, i) => {
-                return sum + (i.frequency === 'Monthly' ? i.amount : i.amount / 12);
-            }, 0);
-            const monthlyOtherIncome = data.otherIncome.reduce((sum, i) => {
-                return sum + (i.frequency === 'Monthly' ? i.amount : i.amount / 12);
-            }, 0);
-            const totalMonthlyIncome = monthlyEmploymentIncome + monthlyInvestmentIncome + monthlyOtherIncome;
-
-            const fixedMonthlyExpensesTotal = data.fixedMonthlyExpenses.reduce((sum, e) => sum + parseFloat(e.amount || 0), 0);
-            const fixedYearlyExpensesMonthly = data.fixedYearlyExpenses.reduce((sum, e) => sum + parseFloat(e.amount || 0), 0) / 12;
-            const variableExpensesTotal = data.variableExpenses.reduce((sum, e) => sum + parseFloat(e.amount || 0), 0);
-            const totalMonthlyExpenses = fixedMonthlyExpensesTotal + fixedYearlyExpensesMonthly + variableExpensesTotal;
-
-            const monthlyLoansEMI = data.loans.reduce((sum, l) => sum + parseFloat(l.emi || 0), 0);
-            const totalMonthlyBurn = totalMonthlyExpenses + monthlyLoansEMI;
-            const monthlySurplus = totalMonthlyIncome - totalMonthlyBurn;
-
-            const emergencyFundCoverage = data.emergencyFund.current && data.emergencyFund.months 
-                ? Math.round((data.emergencyFund.current / (data.emergencyFund.monthlyExpenses * data.emergencyFund.months)) * 100)
-                : 0;
-
+            const kpiGrid = document.getElementById('kpiGrid');
             const kpis = [
-                { label: 'Net Worth', value: `₹${(netWorth/10000000).toFixed(2)}Cr`, subtext: 'Assets - Liabilities' },
-                { label: 'Total Assets', value: `₹${(totalAssets/10000000).toFixed(2)}Cr`, subtext: 'All holdings' },
-                { label: 'Monthly Income', value: `₹${(totalMonthlyIncome/100000).toFixed(2)}L`, subtext: 'Average monthly' },
-                { label: 'Monthly Expenses', value: `₹${(totalMonthlyBurn/100000).toFixed(2)}L`, subtext: 'Including EMI' },
-                { label: 'Monthly Surplus', value: `₹${(monthlySurplus/100000).toFixed(2)}L`, subtext: 'Available to save/invest' },
-                { label: 'Total Debt', value: `₹${(totalLiabilities/100000).toFixed(2)}L`, subtext: 'All liabilities' },
-                { label: 'Emergency Fund', value: `${emergencyFundCoverage}%`, subtext: 'Coverage of target' },
-                { label: 'Total Invested', value: `₹${(data.investments.reduce((sum, i) => sum + parseFloat(i.amount || 0), 0)/100000).toFixed(2)}L`, subtext: 'Active investments' }
+                { label: 'Net Worth', value: '₹0', subtext: 'Total Assets' },
+                { label: 'Monthly Surplus', value: '₹0', subtext: 'Income after expenses' },
+                { label: 'Health Score', value: '0/100', subtext: 'Financial fitness' },
+                { label: 'Emergency Fund', value: '0 months', subtext: 'Target: 12 months' }
             ];
 
-            grid.innerHTML = kpis.map(kpi => `
+            kpiGrid.innerHTML = kpis.map(kpi => `
                 <div class="kpi-card">
                     <div class="kpi-label">${kpi.label}</div>
                     <div class="kpi-value">${kpi.value}</div>
@@ -1352,29 +819,87 @@
             `).join('');
         }
 
-        function renderAllSections() {
-            renderAssets();
-            renderLiabilities();
-            renderEmploymentIncome();
-            renderInvestmentIncome();
-            renderOtherIncome();
-            renderFixedMonthlyExpenses();
-            renderFixedYearlyExpenses();
-            renderVariableExpenses();
-            renderInvestments();
-            renderInsurance();
-            renderLoans();
-            renderGoals();
-            renderRecurringCommitments();
+        function renderFunnel() {
+            const container = document.getElementById('funnelContainer');
+            container.innerHTML = funnelLevels.map((level, idx) => `
+                <div class="funnel-level level-${level.number}">
+                    <div class="funnel-header">
+                        <div class="funnel-number">${level.number}</div>
+                        <div class="funnel-title">${level.title}</div>
+                    </div>
+                    <div class="funnel-description">${level.description}</div>
+                    <div class="funnel-metrics">
+                        ${level.metrics.map(metric => `
+                            <div class="metric-item">
+                                <div class="metric-label">${metric}</div>
+                                <div class="metric-value">—</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
         }
 
-        function handleLogout() {
-            localStorage.removeItem('f360in-user');
-            location.reload();
+        function renderProjects() {
+            const container = document.getElementById('projectsContainer');
+            container.innerHTML = kayCollectivesProjects.map(project => `
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-name">${project.name}</div>
+                        <div class="project-status">${project.status}</div>
+                    </div>
+                    <div class="project-phase">${project.phase}</div>
+                </div>
+            `).join('');
         }
 
-        // INITIALIZATION
-        window.addEventListener('load', init);
+        function setupUploadArea() {
+            const uploadArea = document.getElementById('uploadArea');
+            const excelInput = document.getElementById('excelUpload');
+
+            uploadArea.onclick = () => excelInput.click();
+            uploadArea.ondrop = (e) => {
+                e.preventDefault();
+                excelInput.files = e.dataTransfer.files;
+                handleExcelUpload();
+            };
+            uploadArea.ondragover = (e) => {
+                e.preventDefault();
+                uploadArea.style.background = '#f5f5f5';
+            };
+
+            excelInput.onchange = handleExcelUpload;
+        }
+
+        function handleExcelUpload() {
+            const file = document.getElementById('excelUpload').files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    document.getElementById('uploadStatus').innerHTML = '<span style="color: #2d5016;">✓ Excel file uploaded successfully!</span>';
+                } catch (err) {
+                    document.getElementById('uploadStatus').innerHTML = '<span style="color: #e34948;">✗ Error reading file</span>';
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // CHECK IF ALREADY LOGGED IN
+        window.addEventListener('load', function() {
+            const stored = localStorage.getItem('f360inUser');
+            if (stored) {
+                currentUser = JSON.parse(stored);
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                loadDashboard();
+            } else {
+                init();
+            }
+        });
     </script>
 </body>
 </html>

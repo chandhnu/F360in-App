@@ -34,22 +34,25 @@
         .login-card {
             background: #f5f1ed;
             border-radius: 16px;
-            padding: 3rem;
+            padding: 2rem;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             width: 100%;
-            max-width: 500px;
-            backdrop-filter: blur(10px);
+            max-width: 450px;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .login-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
 
         .login-header-logo {
-            max-width: 180px !important;
+            max-width: 150px !important;
             height: auto !important;
-            margin: 0 auto 1rem auto !important;
+            margin: 0 auto !important;
             display: block !important;
         }
 
@@ -58,10 +61,16 @@
             font-size: 14px;
         }
 
+        .login-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
         .footer-logo {
             text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
+            padding-top: 1.5rem;
             border-top: 1px solid #e0e0e0;
         }
 
@@ -549,20 +558,21 @@
         <div class="login-card">
             <div class="login-header">
                 <img src="https://raw.githubusercontent.com/chandhnu/F360in-App/main/docs/6.png" alt="F360in" class="login-header-logo">
-                <p>Enterprise Financial Dashboard</p>
             </div>
 
-            <div style="margin-bottom: 2rem;">
-                <p style="font-size: 13px; color: #666; margin-bottom: 1rem;">Select User Profile:</p>
-                <div class="user-grid" id="userGrid"></div>
-            </div>
+            <div class="login-content">
+                <div style="margin-bottom: 2rem;">
+                    <p style="font-size: 13px; color: #666; margin-bottom: 1rem;">Select User Profile:</p>
+                    <div class="user-grid" id="userGrid"></div>
+                </div>
 
-            <div class="password-group">
-                <input type="password" id="passwordInput" placeholder="Enter password" required>
-            </div>
+                <div class="password-group">
+                    <input type="password" id="passwordInput" placeholder="Enter password" required>
+                </div>
 
-            <button class="login-btn" onclick="handleLogin()">Access Dashboard</button>
-            <div class="error-msg" id="loginError"></div>
+                <button class="login-btn" onclick="handleLogin()">Access Dashboard</button>
+                <div class="error-msg" id="loginError"></div>
+            </div>
 
             <div class="footer-logo">
                 <img src="https://raw.githubusercontent.com/chandhnu/F360in-App/main/docs/6.png" alt="Kay Collectives">

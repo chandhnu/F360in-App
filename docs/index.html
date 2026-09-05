@@ -40,13 +40,13 @@
         /* LOGIN HEADER */
         .login-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .login-header-logo {
-            max-width: 80px;
+            max-width: 300px;
             height: auto;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             display: block;
             margin-left: auto;
             margin-right: auto;
@@ -70,16 +70,15 @@
         }
 
         .login-subtitle {
-            font-size: 16px;
-            color: #666;
+            font-size: 18px;
+            color: #2c3e50;
             margin-bottom: 0.5rem;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .login-description {
             font-size: 14px;
             color: #999;
-            margin-bottom: 2.5rem;
         }
 
         /* PROFILE SELECTOR */
@@ -336,18 +335,11 @@
             border-top: 1px solid #e0e0e0;
         }
 
-        .footer-logo {
-            max-width: 60px;
-            height: auto;
-            margin: 0 auto 1rem;
-            display: block;
-        }
-
         .footer-text {
             font-size: 12px;
             color: #999;
             font-weight: 500;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .security-text {
@@ -815,15 +807,18 @@
         <div class="login-container">
             <!-- HEADER -->
             <div class="login-header">
-                <img src="./6.png" alt="F360in" class="login-header-logo">
-                <p class="login-tagline">F360in</p>
-                <h1 class="login-title">Personal Wealth<br>Operating System</h1>
+                <img src="./f360in-logo.png" alt="F360in" class="login-header-logo">
+            </div>
+
+            <!-- WELCOME TEXT -->
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 class="login-subtitle">Welcome back</h2>
+                <p class="login-description">Choose your financial profile to continue</p>
             </div>
 
             <!-- PROFILE SELECTION -->
             <div class="profile-selector" id="profileSelector">
-                <label class="profile-label">Welcome back</label>
-                <p class="login-subtitle">Choose your financial profile</p>
+                <label class="profile-label">Select Profile</label>
                 
                 <div class="profiles-list" id="profilesList"></div>
             </div>
@@ -860,7 +855,6 @@
 
             <!-- FOOTER -->
             <div class="login-footer">
-                <img src="./6.png" alt="Kay Collectives" class="footer-logo">
                 <p class="footer-text">Kay Collectives</p>
                 <p class="security-text">Secure • Private • Yours</p>
             </div>

@@ -580,8 +580,16 @@
             <!-- MAIN TABS -->
             <div class="tabs" id="mainTabs"></div>
 
+            <!-- TAB: FINANCIAL DATA -->
+            <div id="tab-data" class="tab-content active">
+                <div class="form-section">
+                    <h3>Financial Data Input</h3>
+                    <div id="dataContainer"></div>
+                </div>
+            </div>
+
             <!-- TAB: FINANCIAL WELLNESS FUNNEL -->
-            <div id="tab-funnel" class="tab-content active">
+            <div id="tab-funnel" class="tab-content">
                 <div class="funnel-container" id="funnelContainer"></div>
             </div>
 
@@ -598,14 +606,6 @@
                 <div class="form-section">
                     <h3>HUF Rental Property Tracking</h3>
                     <div id="rentalContainer"></div>
-                </div>
-            </div>
-
-            <!-- TAB: FINANCIAL DATA -->
-            <div id="tab-data" class="tab-content">
-                <div class="form-section">
-                    <h3>Financial Data Input</h3>
-                    <div id="dataContainer"></div>
                 </div>
             </div>
 
@@ -778,8 +778,8 @@
         function renderTabs() {
             const tabs = document.getElementById('mainTabs');
             let tabHTML = `
-                <button class="tab-btn active" onclick="switchTab('tab-funnel', this)">Financial Funnel</button>
-                <button class="tab-btn" onclick="switchTab('tab-data', this)">Financial Data</button>
+                <button class="tab-btn active" onclick="switchTab('tab-data', this)">Financial Data</button>
+                <button class="tab-btn" onclick="switchTab('tab-funnel', this)">Financial Funnel</button>
                 <button class="tab-btn" onclick="switchTab('tab-upload', this)">Excel Upload</button>
             `;
 
@@ -787,7 +787,7 @@
                 tabHTML += `<button class="tab-btn" onclick="switchTab('tab-projects', this)">Projects</button>`;
             }
 
-            if (currentUser.id === 'chandhnu') {
+            if (currentUser.id === 'chandhnu-huf') {
                 tabHTML += `<button class="tab-btn" onclick="switchTab('tab-rental', this)">HUF Rentals</button>`;
             }
 

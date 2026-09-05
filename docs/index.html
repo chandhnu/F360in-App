@@ -40,33 +40,16 @@
         /* LOGIN HEADER */
         .login-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .login-header-logo {
-            max-width: 300px;
+            max-width: 280px;
             height: auto;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             display: block;
             margin-left: auto;
             margin-right: auto;
-        }
-
-        .login-tagline {
-            font-size: 14px;
-            letter-spacing: 1.2px;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .login-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 2rem;
-            line-height: 1.3;
         }
 
         .login-subtitle {
@@ -752,10 +735,6 @@
                 max-width: 100%;
             }
 
-            .login-title {
-                font-size: 26px;
-            }
-
             .sidebar {
                 display: none;
             }
@@ -778,6 +757,10 @@
             .search-box {
                 width: 100%;
             }
+
+            .login-header-logo {
+                max-width: 240px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -785,9 +768,8 @@
                 margin-bottom: 2rem;
             }
 
-            .login-title {
-                font-size: 24px;
-                margin-bottom: 1.5rem;
+            .login-header-logo {
+                max-width: 200px;
             }
 
             .profiles-list {
@@ -798,6 +780,10 @@
                 font-size: 16px;
                 letter-spacing: 4px;
             }
+
+            .login-subtitle {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -807,7 +793,34 @@
         <div class="login-container">
             <!-- HEADER -->
             <div class="login-header">
-                <img src="./f360in-logo.png" alt="F360in" class="login-header-logo">
+                <svg class="login-header-logo" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- F -->
+                    <rect x="20" y="20" width="30" height="80" fill="#5a6e3d" rx="4"/>
+                    <rect x="20" y="20" width="40" height="18" fill="#5a6e3d" rx="4"/>
+                    <rect x="20" y="50" width="35" height="14" fill="#5a6e3d" rx="3"/>
+                    
+                    <!-- 3 -->
+                    <path d="M 80 20 L 110 20 Q 120 20 120 30 L 120 35 Q 120 42 105 42 L 90 42 M 90 50 L 105 50 Q 120 50 120 60 Q 120 75 80 75 L 75 75" 
+                          stroke="#f5e6d3" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    
+                    <!-- 6 -->
+                    <path d="M 155 20 L 155 75 Q 155 85 170 85 Q 185 85 185 70 Q 185 55 170 55 Q 155 55 155 65" 
+                          stroke="#f5e6d3" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    
+                    <!-- 0 -->
+                    <rect x="210" y="20" width="40" height="65" rx="20" stroke="#f5e6d3" stroke-width="14" fill="none"/>
+                    
+                    <!-- in -->
+                    <g fill="#f5e6d3">
+                        <rect x="270" y="30" width="12" height="50" rx="2"/>
+                        <circle cx="295" cy="25" r="6"/>
+                        <path d="M 295 35 L 295 80 Q 295 88 305 88 Q 315 88 315 80" stroke="#f5e6d3" stroke-width="12" fill="none" stroke-linecap="round"/>
+                    </g>
+                    
+                    <!-- Red dot -->
+                    <circle cx="330" cy="28" r="8" fill="#c41e3a"/>
+                </svg>
+                <p style="font-size: 11px; color: #5a6e3d; font-weight: 700; letter-spacing: 2px; margin-top: 0.5rem;">WEALTH MANAGEMENT</p>
             </div>
 
             <!-- WELCOME TEXT -->

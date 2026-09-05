@@ -32,7 +32,7 @@
         }
 
         .login-card {
-            background: #f5f1ed;
+            background: #f8ebdf;
             border-radius: 16px;
             padding: 2rem;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
@@ -75,7 +75,7 @@
         }
 
         .footer-logo img {
-            max-width: 60px;
+            max-width: 80px;
             height: auto;
             margin-bottom: 0.5rem;
         }
@@ -810,7 +810,7 @@
                 tabHTML += `<button class="tab-btn" onclick="switchTab('tab-projects', this)">Projects</button>`;
             }
 
-            if (currentUser.id === 'chandhnu' || currentUser.id === 'chandhnu-huf') {
+            if (currentUser.id === 'chandhnu') {
                 tabHTML += `<button class="tab-btn" onclick="switchTab('tab-rental', this)">HUF Rentals</button>`;
             }
 

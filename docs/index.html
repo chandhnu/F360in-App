@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F360in - Financial Dashboard</title>
+    <title>F360in - Personal Wealth Operating System</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
     <style>
         * {
@@ -12,128 +12,353 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            height: 100%;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             color: #333;
-            background: #f8ebdf;
         }
 
         /* ===== LOGIN PAGE ===== */
         .login-screen {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            background: #f8ebdf;
             padding: 20px;
-            background: linear-gradient(135deg, #2d5016 0%, #1a3009 100%);
+            width: 100%;
         }
 
-        .login-card {
-            background: #f8ebdf;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        .login-container {
             width: 100%;
-            max-width: 450px;
-            min-height: 700px;
+            max-width: 500px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
+        /* LOGIN HEADER */
         .login-header {
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 3rem;
         }
 
         .login-header-logo {
-            max-width: 350px !important;
-            height: auto !important;
-            margin: 0 auto !important;
-            display: block !important;
+            max-width: 80px;
+            height: auto;
+            margin-bottom: 1.5rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .login-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .login-tagline {
+            font-size: 14px;
+            letter-spacing: 1.2px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
         }
 
-        .user-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+        .login-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+        }
+
+        .login-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .login-description {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 2.5rem;
+        }
+
+        /* PROFILE SELECTOR */
+        .profile-selector {
             margin-bottom: 2rem;
         }
 
-        .user-btn {
-            padding: 16px;
-            background: #f5f5f5;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 13px;
+        .profile-label {
+            font-size: 12px;
             font-weight: 600;
-            transition: all 0.3s;
-            text-align: center;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 1rem;
+            display: block;
         }
 
-        .user-btn:hover {
-            background: #e8f5e9;
-            border-color: #2d5016;
-            color: #2d5016;
+        .profiles-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 4px;
         }
 
-        .user-btn.active {
-            background: linear-gradient(135deg, #2d5016 0%, #1a3009 100%);
-            color: white;
-            border-color: transparent;
+        .profiles-list::-webkit-scrollbar {
+            width: 6px;
         }
 
-        .password-group {
+        .profiles-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .profiles-list::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 3px;
+        }
+
+        .profile-card {
+            padding: 16px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .profile-card:hover {
+            border-color: #52a896;
+            box-shadow: 0 4px 12px rgba(82, 168, 150, 0.1);
+        }
+
+        .profile-card.active {
+            background: linear-gradient(135deg, #f5f5f5 0%, #fff 100%);
+            border-color: #52a896;
+            box-shadow: 0 4px 16px rgba(82, 168, 150, 0.15);
+        }
+
+        .profile-info {
+            text-align: left;
+        }
+
+        .profile-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .profile-type {
+            font-size: 12px;
+            color: #999;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-icon {
+            font-size: 20px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .profile-card.active .profile-icon {
+            opacity: 1;
+        }
+
+        /* PIN INPUT SECTION */
+        .pin-section {
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .pin-section.active {
+            display: block;
+        }
+
+        .pin-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .pin-input-wrapper {
             margin-bottom: 1.5rem;
         }
 
-        .password-group input {
+        .pin-input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
+            padding: 14px 16px;
+            font-size: 18px;
+            letter-spacing: 6px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.2s;
+            font-weight: 600;
+            -webkit-text-security: disc;
         }
 
-        .password-group input:focus {
+        .pin-input:focus {
             outline: none;
-            border-color: #2d5016;
-            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+            border-color: #52a896;
+            box-shadow: 0 0 0 3px rgba(82, 168, 150, 0.1);
         }
 
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #2d5016 0%, #1a3009 100%);
+        .pin-input::placeholder {
+            -webkit-text-security: circle;
+        }
+
+        .pin-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .pin-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            transition: all 0.2s;
+        }
+
+        .pin-dot.filled {
+            background: #52a896;
+        }
+
+        /* BUTTONS */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .unlock-btn {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #52a896 0%, #3d8575 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 600;
+            font-size: 16px;
             cursor: pointer;
-            margin-bottom: 1rem;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: none;
         }
 
-        .login-btn:hover {
+        .unlock-btn.active {
+            display: block;
+        }
+
+        .unlock-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(45, 80, 22, 0.3);
+            box-shadow: 0 8px 20px rgba(82, 168, 150, 0.3);
         }
 
-        .error-msg {
-            color: #e34948;
+        .unlock-btn:active {
+            transform: translateY(0);
+        }
+
+        .unlock-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-btn {
+            padding: 12px 24px;
+            background: transparent;
+            color: #52a896;
+            border: 2px solid #52a896;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: none;
+        }
+
+        .back-btn.active {
+            display: block;
+        }
+
+        .back-btn:hover {
+            background: rgba(82, 168, 150, 0.1);
+        }
+
+        /* ERROR MESSAGE */
+        .error-message {
             font-size: 13px;
+            color: #da7e6f;
             text-align: center;
+            margin-bottom: 1rem;
+            min-height: 18px;
+            display: none;
         }
 
-        /* ===== DASHBOARD ===== */
+        .error-message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FOOTER */
+        .login-footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-logo {
+            max-width: 60px;
+            height: auto;
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: #999;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .security-text {
+            font-size: 12px;
+            color: #999;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* ===== DASHBOARD (PRESERVED) ===== */
         .dashboard {
             display: none;
             background: #f8ebdf;
@@ -174,11 +399,11 @@
         }
 
         .sidebar-icon:hover {
-            background: rgba(45, 80, 22, 0.3);
+            background: rgba(82, 168, 150, 0.3);
         }
 
         .sidebar-icon.logo {
-            background: linear-gradient(135deg, #2d5016 0%, #1a3009 100%);
+            background: linear-gradient(135deg, #52a896 0%, #3d8575 100%);
             width: 50px;
             height: 50px;
             display: flex;
@@ -242,7 +467,7 @@
         .user-avatar {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #2d5016 0%, #1a3009 100%);
+            background: linear-gradient(135deg, #52a896 0%, #3d8575 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -296,7 +521,7 @@
         .kpi-value {
             font-size: 28px;
             font-weight: 700;
-            color: #2d5016;
+            color: #52a896;
             margin-bottom: 8px;
         }
 
@@ -399,11 +624,11 @@
         }
 
         .tx-amount.negative {
-            color: #e34948;
+            color: #da7e6f;
         }
 
         .tx-amount.positive {
-            color: #2d5016;
+            color: #52a896;
         }
 
         .status-badge {
@@ -416,7 +641,7 @@
 
         .status-badge.complete {
             background: #e8f5e9;
-            color: #2d5016;
+            color: #52a896;
         }
 
         .status-badge.pending {
@@ -426,7 +651,7 @@
 
         .status-badge.failed {
             background: #ffebee;
-            color: #e34948;
+            color: #da7e6f;
         }
 
         /* BREAKDOWN */
@@ -451,7 +676,7 @@
         .breakdown-percent {
             font-size: 13px;
             font-weight: 600;
-            color: #2d5016;
+            color: #52a896;
         }
 
         /* BUDGET */
@@ -474,7 +699,7 @@
         .budget-percent {
             font-size: 13px;
             font-weight: 600;
-            color: #2d5016;
+            color: #52a896;
         }
 
         .budget-bar {
@@ -487,12 +712,23 @@
 
         .budget-fill {
             height: 100%;
-            background: linear-gradient(90deg, #d32f2f 0%, #f57c00 100%);
+            background: linear-gradient(90deg, #da7e6f 0%, #e8b4a3 100%);
             border-radius: 4px;
         }
 
+        .logout-link {
+            color: #52a896;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
+        }
+
         .button {
-            background: linear-gradient(135deg, #2d5016 0%, #1a3009 100%);
+            background: linear-gradient(135deg, #52a896 0%, #3d8575 100%);
             color: white;
             border: none;
             padding: 10px 16px;
@@ -505,20 +741,10 @@
 
         .button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(45, 80, 22, 0.3);
+            box-shadow: 0 5px 15px rgba(82, 168, 150, 0.3);
         }
 
-        .logout-link {
-            color: #2d5016;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 13px;
-        }
-
-        .logout-link:hover {
-            text-decoration: underline;
-        }
-
+        /* RESPONSIVE */
         @media (max-width: 1200px) {
             .kpi-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -530,6 +756,14 @@
         }
 
         @media (max-width: 768px) {
+            .login-container {
+                max-width: 100%;
+            }
+
+            .login-title {
+                font-size: 26px;
+            }
+
             .sidebar {
                 display: none;
             }
@@ -553,33 +787,87 @@
                 width: 100%;
             }
         }
+
+        @media (max-width: 480px) {
+            .login-header {
+                margin-bottom: 2rem;
+            }
+
+            .login-title {
+                font-size: 24px;
+                margin-bottom: 1.5rem;
+            }
+
+            .profiles-list {
+                max-height: 320px;
+            }
+
+            .pin-input {
+                font-size: 16px;
+                letter-spacing: 4px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- ===== LOGIN SCREEN ===== -->
     <div class="login-screen" id="loginScreen">
-        <div class="login-card">
+        <div class="login-container">
+            <!-- HEADER -->
             <div class="login-header">
                 <img src="./6.png" alt="F360in" class="login-header-logo">
+                <p class="login-tagline">F360in</p>
+                <h1 class="login-title">Personal Wealth<br>Operating System</h1>
             </div>
 
-            <div class="login-content">
-                <div style="margin-bottom: 2rem;">
-                    <p style="font-size: 13px; color: #666; margin-bottom: 1rem;">Select User Profile:</p>
-                    <div class="user-grid" id="userGrid"></div>
+            <!-- PROFILE SELECTION -->
+            <div class="profile-selector" id="profileSelector">
+                <label class="profile-label">Welcome back</label>
+                <p class="login-subtitle">Choose your financial profile</p>
+                
+                <div class="profiles-list" id="profilesList"></div>
+            </div>
+
+            <!-- PIN SECTION -->
+            <div class="pin-section" id="pinSection">
+                <label class="pin-label" id="pinLabel">Enter your PIN</label>
+                
+                <div class="pin-input-wrapper">
+                    <input 
+                        type="password" 
+                        id="pinInput" 
+                        class="pin-input" 
+                        placeholder="• • • • • •"
+                        maxlength="6"
+                        inputmode="numeric"
+                        autocomplete="off"
+                    >
                 </div>
 
-                <div class="password-group">
-                    <input type="password" id="passwordInput" placeholder="Enter password" required>
-                </div>
+                <div class="pin-dots" id="pinDots"></div>
 
-                <button class="login-btn" onclick="handleLogin()">Access Dashboard</button>
-                <div class="error-msg" id="loginError"></div>
+                <div class="error-message" id="errorMessage"></div>
+
+                <div class="button-group">
+                    <button class="unlock-btn active" id="unlockBtn" onclick="handleUnlock()">
+                        Unlock F360in
+                    </button>
+                    <button class="back-btn active" id="backBtn" onclick="backToProfileSelection()">
+                        Change Profile
+                    </button>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="login-footer">
+                <img src="./6.png" alt="Kay Collectives" class="footer-logo">
+                <p class="footer-text">Kay Collectives</p>
+                <p class="security-text">Secure • Private • Yours</p>
             </div>
         </div>
     </div>
 
-    <!-- ===== DASHBOARD ===== -->
+    <!-- ===== DASHBOARD (PRESERVED) ===== -->
     <div class="dashboard" id="dashboard">
         <!-- SIDEBAR -->
         <div class="sidebar">
@@ -599,7 +887,7 @@
             <div class="header">
                 <div class="header-left">
                     <h1>F360in</h1>
-                    <p id="profileName">Chandhnu Parthiban</p>
+                    <p id="profileName">Chandhnu</p>
                 </div>
                 <div class="header-right">
                     <input class="search-box" type="text" placeholder="Start searching here...">
@@ -783,20 +1071,58 @@
     </div>
 
     <script>
-        // USER PROFILES
-        const users = [
-            { id: 'chandhnu', name: 'Chandhnu', role: 'Individual', avatar: 'CP' },
-            { id: 'gayathri', name: 'Gayathri Parthiban', role: 'Individual', avatar: 'GP' },
-            { id: 'priyadharsini', name: 'Priyadharsini', role: 'Individual', avatar: 'PR' },
-            { id: 'kayilan', name: 'Kayilan Dev', role: 'Individual', avatar: 'KD' },
-            { id: 'chandhnu-huf', name: 'Chandhnu Parthiban HUF', role: 'HUF', avatar: 'HF' },
-            { id: 'kay-collectives', name: 'Kay Collectives', role: 'Business Portfolio', avatar: 'KC' },
-            { id: 'koil-trust', name: 'Sri Siva Subramaniya Koil Trust', role: 'Trust', avatar: 'ST' }
+        // ===== PROFILE ENTITY MODEL =====
+        const profiles = [
+            {
+                id: 'chandhnu',
+                name: 'Chandhnu',
+                type: 'Personal',
+                avatar: 'C',
+                credential: 'chandhnu123'
+            },
+            {
+                id: 'priyadharsini',
+                name: 'Priyadharsini',
+                type: 'Personal',
+                avatar: 'P',
+                credential: 'priyadharsini123'
+            },
+            {
+                id: 'kayilan',
+                name: 'Kayilan',
+                type: 'Personal',
+                avatar: 'K',
+                credential: 'kayilan123'
+            },
+            {
+                id: 'chandhnu-huf',
+                name: 'Chandhnu HUF',
+                type: 'HUF',
+                avatar: 'H',
+                credential: 'huf123'
+            },
+            {
+                id: 'kay-collectives',
+                name: 'Kay Collectives',
+                type: 'Business',
+                avatar: 'KC',
+                credential: 'kaycollectives123'
+            },
+            {
+                id: 'koil-trust',
+                name: 'Sri Siva Subramaniya Swamy Koil Trust',
+                type: 'Trust',
+                avatar: 'ST',
+                credential: 'koiltrust123'
+            }
         ];
 
-        const PASSWORD = 'f360in2024';
-        let currentUser = null;
+        // ===== STATE =====
+        let selectedProfile = null;
+        let pinAttempts = 0;
+        const MAX_PIN_ATTEMPTS = 3;
 
+        // ===== FINANCIAL DATA =====
         const data = {
             monthlyIncome: 180203,
             monthlyExpenses: 126874,
@@ -811,59 +1137,159 @@
 
         let incomePieChart, spendingChart, incomeLinesChart, cashFlowChart;
 
-        // LOGIN FUNCTIONS
-        function renderUserGrid() {
-            const grid = document.getElementById('userGrid');
-            grid.innerHTML = users.map(user => `
-                <button class="user-btn" onclick="selectUser('${user.id}', this)">
-                    ${user.name}<br>
-                    <span style="font-size: 11px; opacity: 0.7;">${user.role}</span>
-                </button>
+        // ===== LOGIN PAGE INITIALIZATION =====
+        function initializeLoginPage() {
+            renderProfileList();
+            setupPinInput();
+            restoreSession();
+        }
+
+        function renderProfileList() {
+            const profilesList = document.getElementById('profilesList');
+            profilesList.innerHTML = profiles.map(profile => `
+                <div class="profile-card" onclick="selectProfile('${profile.id}', this)">
+                    <div class="profile-info">
+                        <span class="profile-name">${profile.name}</span>
+                        <span class="profile-type">${profile.type}</span>
+                    </div>
+                    <span class="profile-icon">✓</span>
+                </div>
             `).join('');
         }
 
-        function selectUser(userId, element) {
-            currentUser = users.find(u => u.id === userId);
-            document.querySelectorAll('.user-btn').forEach(btn => btn.classList.remove('active'));
+        function selectProfile(profileId, element) {
+            // Deselect previous
+            document.querySelectorAll('.profile-card').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            // Select new
             element.classList.add('active');
+            selectedProfile = profiles.find(p => p.id === profileId);
+
+            // Show PIN section
+            document.getElementById('profileSelector').style.display = 'none';
+            document.getElementById('pinSection').classList.add('active');
+            document.getElementById('pinInput').focus();
+            document.getElementById('pinLabel').textContent = `Enter PIN for ${selectedProfile.name}`;
+            pinAttempts = 0;
+            clearPinInput();
         }
 
-        function handleLogin() {
-            const password = document.getElementById('passwordInput').value;
+        function setupPinInput() {
+            const pinInput = document.getElementById('pinInput');
             
-            if (!currentUser) {
-                document.getElementById('loginError').textContent = 'Please select a user profile';
+            pinInput.addEventListener('input', (e) => {
+                updatePinDots(e.target.value.length);
+            });
+
+            pinInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleUnlock();
+                }
+            });
+        }
+
+        function updatePinDots(count) {
+            const pinsDotsContainer = document.getElementById('pinDots');
+            let dotsHtml = '';
+            for (let i = 0; i < 6; i++) {
+                const filled = i < count ? 'filled' : '';
+                dotsHtml += `<div class="pin-dot ${filled}"></div>`;
+            }
+            pinsDotsContainer.innerHTML = dotsHtml;
+        }
+
+        function handleUnlock() {
+            const pin = document.getElementById('pinInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (!selectedProfile) {
+                showError(errorMessage, 'Please select a profile first');
                 return;
             }
 
-            if (password !== PASSWORD) {
-                document.getElementById('loginError').textContent = 'Incorrect password';
+            if (pin.length !== 6) {
+                showError(errorMessage, 'Please enter a 6-digit PIN');
                 return;
             }
 
-            localStorage.setItem('f360in-user', JSON.stringify(currentUser));
-            showDashboard();
+            if (pin !== selectedProfile.credential) {
+                pinAttempts++;
+                if (pinAttempts >= MAX_PIN_ATTEMPTS) {
+                    showError(errorMessage, 'Too many incorrect attempts. Please try again.');
+                    backToProfileSelection();
+                    setTimeout(clearPinInput, 1500);
+                } else {
+                    showError(errorMessage, 'Incorrect PIN. Please try again.');
+                    clearPinInput();
+                }
+                return;
+            }
+
+            // Authentication successful
+            errorMessage.classList.remove('show');
+            localStorage.setItem('f360in-session', JSON.stringify({
+                profileId: selectedProfile.id,
+                profileName: selectedProfile.name,
+                profileType: selectedProfile.type,
+                avatar: selectedProfile.avatar,
+                timestamp: Date.now()
+            }));
+
+            openDashboard();
         }
 
-        function handleLogout() {
-            currentUser = null;
-            localStorage.removeItem('f360in-user');
-            document.getElementById('dashboard').classList.remove('active');
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('passwordInput').value = '';
-            document.querySelectorAll('.user-btn').forEach(btn => btn.classList.remove('active'));
+        function showError(element, message) {
+            element.textContent = message;
+            element.classList.add('show');
         }
 
-        function showDashboard() {
+        function clearPinInput() {
+            document.getElementById('pinInput').value = '';
+            updatePinDots(0);
+            document.getElementById('errorMessage').classList.remove('show');
+        }
+
+        function backToProfileSelection() {
+            selectedProfile = null;
+            document.getElementById('profileSelector').style.display = 'block';
+            document.getElementById('pinSection').classList.remove('active');
+            document.querySelectorAll('.profile-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            clearPinInput();
+        }
+
+        function restoreSession() {
+            const session = localStorage.getItem('f360in-session');
+            if (session) {
+                const sessionData = JSON.parse(session);
+                // Session exists - would restore here if needed
+                // For now, always show login
+            }
+        }
+
+        function openDashboard() {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('dashboard').classList.add('active');
-            document.getElementById('profileName').textContent = currentUser.name;
-            document.getElementById('userNameDash').textContent = currentUser.name;
-            document.getElementById('userAvatarDash').textContent = currentUser.avatar;
+            
+            document.getElementById('profileName').textContent = selectedProfile.name;
+            document.getElementById('userNameDash').textContent = selectedProfile.name;
+            document.getElementById('userAvatarDash').textContent = selectedProfile.avatar;
+
             updateDashboard();
         }
 
-        // DASHBOARD FUNCTIONS
+        function handleLogout() {
+            selectedProfile = null;
+            localStorage.removeItem('f360in-session');
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('loginScreen').style.display = 'flex';
+            backToProfileSelection();
+        }
+
+        // ===== DASHBOARD FUNCTIONS (PRESERVED) =====
         function formatCurrency(num) {
             if (num >= 10000000) return '₹' + (num / 10000000).toFixed(2) + 'Cr';
             if (num >= 100000) return '₹' + (num / 100000).toFixed(1) + 'L';
@@ -1012,7 +1438,7 @@
                         <span class="budget-percent">${budget.used}%</span>
                     </div>
                     <div class="budget-bar">
-                        <div class="budget-fill" style="width: ${budget.used}%"></div>
+                        <div class="budget-fill" style="width: ${budget.used}%; background: linear-gradient(90deg, #da7e6f 0%, #e8b4a3 100%);"></div>
                     </div>
                 </div>
             `).join('');
@@ -1044,22 +1470,8 @@
             alert('Data saved successfully!');
         }
 
-        // INIT
-        window.addEventListener('load', () => {
-            renderUserGrid();
-            
-            const stored = localStorage.getItem('f360in-user');
-            const storedData = localStorage.getItem('f360in-data');
-            
-            if (storedData) Object.assign(data, JSON.parse(storedData));
-            
-            if (stored) {
-                currentUser = JSON.parse(stored);
-                showDashboard();
-            } else {
-                document.getElementById('loginScreen').style.display = 'flex';
-            }
-        });
+        // ===== INITIALIZATION =====
+        window.addEventListener('load', initializeLoginPage);
     </script>
 </body>
 </html>
